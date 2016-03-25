@@ -1,0 +1,38 @@
+{
+  "name": "uploader",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "string",
+      "required": true
+    },
+    "noOfPosts": {
+      "type": "number",
+      "required": true
+    },
+    "noOfSubscriber": {
+      "type": "number",
+      "required": true
+    },
+    "pPic": {
+      "type": "string"
+    },
+    "cPic": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "posts": {
+      "type": "hasMany",
+      "model": "posts",
+      "foreignKey": "uploaderId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

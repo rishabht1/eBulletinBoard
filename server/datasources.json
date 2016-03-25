@@ -1,0 +1,6 @@
+{
+  "mongo": {
+    "name": "mongo",
+    "connector": "mongodb"
+  }
+}

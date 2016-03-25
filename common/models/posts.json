@@ -1,0 +1,55 @@
+{
+  "name": "posts",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "poster": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string"
+    },
+    "realeaseDate": {
+      "type": "date",
+      "required": true
+    },
+    "startDate": {
+      "type": "date",
+      "required": true
+    },
+    "endDate": {
+      "type": "date"
+    },
+    "likes": {
+      "type": "number",
+      "required": true
+    },
+    "like": {
+      "type": [
+        "string"
+      ]
+    },
+    "type": {
+      "type": "boolean",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "uploader": {
+      "type": "belongsTo",
+      "model": "uploader",
+      "foreignKey": "uploaderId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

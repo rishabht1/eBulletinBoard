@@ -1,0 +1,35 @@
+{
+  "name": "viewer",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "string"
+    },
+    "subscriptions": {
+      "type": [
+        "string"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {
+    "uploaders": {
+      "type": "hasMany",
+      "model": "uploader",
+      "foreignKey": "id"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
