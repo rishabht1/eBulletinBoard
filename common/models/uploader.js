@@ -14,7 +14,7 @@ module.exports = function(Uploader) {
 			  "uploaderId": "id"
         });
     };
-   Uploader.feed=function(id){
+    Uploader.feed=function(id){
    	var res;
    	res=Uploader.models.posts.find({where:{uploaderId:id}},function(err,res){
 

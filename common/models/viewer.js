@@ -11,13 +11,13 @@ module.exports = function(Viewer) {
         	                         })
 	}
 	Viewer.subscribe=function(id,uid){
-        Viewer.find({where:{id:id}},function(err,v){
+        Viewer.find({where:{and:[{id:id}]}},function(err,v){
 
         }).subscriptions.push(uid);
 	}
 	Viewer.nlfeed=function(){
 		var v=Viewer.models.posts.find({order: 'startDate DESC'},function(err,v){
-
+ 
 		});
 	}
 	Viewer.remoteMethod('feed',{

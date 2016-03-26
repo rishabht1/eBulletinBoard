@@ -27,7 +27,7 @@
     "uploaders": {
       "type": "hasMany",
       "model": "uploader",
-      "foreignKey": "id"
+      "foreignKey": "uploaderId"
     }
   },
   "acls": [],
