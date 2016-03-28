@@ -23,6 +23,11 @@
     },
     "cPic": {
       "type": "string"
+    },
+    "subscriberList": {
+      "type": [
+        "string"
+      ]
     }
   },
   "validations": [],

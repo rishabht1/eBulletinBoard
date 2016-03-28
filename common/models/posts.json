@@ -40,6 +40,9 @@
     "type": {
       "type": "boolean",
       "required": true
+    },
+    "tags": {
+      "type": "string"
     }
   },
   "validations": [],
