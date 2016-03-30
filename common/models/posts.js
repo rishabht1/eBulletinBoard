@@ -1,13 +1,15 @@
 module.exports = function(Posts) {
-  Posts.like=async function(id,uid){
-    var l=Posts.findById(id);
-    var l1=l[0].likes;
-      
+  Posts.like=async function(id,vid){
+    var l=await Posts.findById(id);
+    console.log(l);
+    var l1=l.likes;
   	await Posts.update({id:id},{likes:l1+1});
-    await Posts.update({id:id},{addToSet:{like:"uid"}});
+    var peopleliked=l.like;
+    peopleliked.push(vid);
+    await Posts.update({id:id},{like:peopleliked});
   }
   Posts.deletePost=async function(id){
-  	await Posts.destroyAll({where:{id:id}});
+  	await Posts.destroyAll({id:id});
     var res='This post has been deleted successfully'
     return res;
   }
@@ -42,7 +44,7 @@ module.exports = function(Posts) {
                              })
   Posts.remoteMethod('deletePost',{
                              accepts:[
-                                      {arg:'uid',type:'string',required:true}
+                                      {arg:'id',type:'string',required:true}
                                      ],
                             returns:{arg:'res',type:'string'},
                                  http: {path: '/deletePost', verb: 'get'}

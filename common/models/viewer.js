@@ -14,23 +14,41 @@ module.exports = function(Viewer) {
 	Viewer.like_feed=async function(id){
 		console.log(id);
 		var v=await Viewer.find({where:{id:id}});
-		console.log(v[0].name);
+		//console.log(v[0].name);
 		var subscriberList=v[0].subscriptions;
-		console.log(subscriberList)
+		//console.log(subscriberList)
         var res;
         res=await app.models.posts.find({where:{and:[{uploaderId:{inq:subscriberList}},{realeaseDate:{gt:Date.now()}}]},
         	                         order: 'likes DESC'})
         return res;
 	}
 	Viewer.subscribe=async function(id,uid){
-        await Viewer.update({id:id},{subscriptions:{uid}});
-        await Viewer.app.models.Uploader.update({id:uid},{addToSet:{subscriberList:id}});
+		var v=await Viewer.find({where:{id:id}});
+		var currentSubscriptions=v[0].subscriptions;
+		currentSubscriptions.push(uid);
+        await Viewer.update({id:id},{subscriptions:currentSubscriptions});
+        var u=app.models.Uploader.find({where:{id:uid}});
+        var currentSubscribers=u[0].subscriberList;
+        currentSubscribers.push(id);
+        await Viewer.app.models.Uploader.update({id:uid},{subscriberList:currentSubscribers});
         var res='Your are now succesfully subscribed to'+ uid
         return res;
 	}
 	Viewer.unsubscribe=async function(id,uid){
-        await Viewer.update({id:id},{pull:{subscriptions:uid}});
-        await Viewer.app.models.Uploader.update({id:uid},{pull:{subscriberList:id}});
+        var v=await Viewer.find({where:{id:id}});
+		var currentSubscriptions=v[0].subscriptions;
+		var i=currentSubscriptions.indexOf(uid);
+		if (i > -1) {
+   			 currentSubscriptions.splice(i, 1);
+		}
+        await Viewer.update({id:id},{subscriptions:currentSubscriptions});
+        var u=app.models.Uploader.find({where:{id:uid}});
+        var currentSubscribers=u[0].subscriberList;
+        i=currentSubscribers.indexOf(id);
+        if (i > -1) {
+   			 currentSubscribers.splice(i, 1);
+		}
+        await Viewer.app.models.Uploader.update({id:uid},{subscriberList:currentSubscribers}); 
         var res='Your are now unsubscribe to' + uid;
         return res;
 	}

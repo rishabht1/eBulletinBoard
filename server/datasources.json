@@ -3,5 +3,23 @@
     "database": "test",
     "name": "mongo",
     "connector": "mongodb"
-  }
+  },
+  "notifications": {
+    "name": "notifications",
+    "connector": "mail",
+    "defaultForType": "mail",
+    "connector": "mail",
+    "transports": [
+            {
+		"type": "SMTP",
+		"host": "smtp.gmail.com",
+		"secure": true,
+		"port": 465,
+		"auth": {
+			"user": "pareshp1997@gmail.com",
+			"pass": "PARmar@8888!"
+			}
+	    }
+     ]
+}
 }

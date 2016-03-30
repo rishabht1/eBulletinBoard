@@ -1,7 +1,24 @@
 {
   "mongo": {
+    "database": "test",
     "name": "mongo",
-    "connector": "mongodb",
-    "database":"test"
-  }
+    "connector": "mongodb"
+  },
+  "notifications": {
+    "name": "notifications",
+    "connector": "mail",
+    "defaultForType": "mail",
+    "connector": "mail",
+    "transports": [
+            {
+		"type": "SMTP",
+		"host": "smtp.gmail.com",
+		"secure": true,
+		"port": 465,
+		"auth": {
+			"user": "name@gmail.com",
+			"pass": "pass"
+			}
+	    }
+     ]
 }
