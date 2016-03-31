@@ -73,7 +73,51 @@
         <div class="center" style="padding-top: 2rem; padding-bottom: 2rem;">
           <img src="http://lorempixel.com/200/200" alt="" class="circle responsive-img">
           <h3 class="header center text-lighten-1">The Debate Club</h3>
-          <a class="waves-effect cyan waves-light btn">Upload An Event</a>
+          <!-- Modal Trigger -->
+          <a class="waves-effect cyan waves-light btn modal-trigger" href="#modal1">Upload An Event</a>
+
+          <!-- Modal Structure -->
+          <div id="modal1" class="modal">
+            <div class="modal-content">
+              <h5><u>Uplaod an event</u></h5>
+              <div class="row">
+              <form class="col s12">
+                <div class="row">
+                  <div class="input-field col s6">
+                    <input id="first_name" type="text" class="validate">
+                    <label for="first_name">Name of the event</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s6">
+                    <input id="last_name" type="text" class="validate">
+                    <label for="last_name">Time : From</label>
+                  </div>
+                  <div class="input-field col s6">
+                    <input id="last_name" type="text" class="validate">
+                    <label for="last_name">Time : To</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s6">
+                    <input id="password" type="date" class="datepicker">
+                    <label for="password">Date</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <textarea id="textarea1" class="materialize-textarea"></textarea>
+                    <label for="textarea1">Description</label>
+                  </div>
+                </div>
+              </form>
+            </div>
+            </div>
+            <div class="modal-footer">
+              <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Next</a>
+              <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+            </div>
+          </div>
         </div>
         
     </div>
@@ -271,5 +315,17 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
+  <script>
+  $(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+  });
+  </script>
+  <script>
+  $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15 // Creates a dropdown of 15 years to control year
+  });
+  </script>
   </body>
 </html>

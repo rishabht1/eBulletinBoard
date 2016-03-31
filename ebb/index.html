@@ -33,7 +33,7 @@
                         
                         <li><a href="javascript:void(0);" class='dropdown-button btn-floating mdi-navigation-menu' href='#' data-activates='dropdown1' ></a>
                           <ul id='dropdown1' class='dropdown-content' >
-                            <li><a href="specific.html">Debate Club</a></li>
+                            <li><a href="specific_user.html">Debate Club</a></li>
                             <li><a href="specific.html">Press Club</a></li>
                             <li><a href="specific.html">Headrush</a></li>
                             <li><a href="specific.html">DTG</a></li>
@@ -60,7 +60,7 @@
                           </div>
                         </li>                        
                         <li>
-                          <a href="login.html">Login</a>
+                          <a class = "modal-trigger" href="#modal1">Login</a>
                         </li>
                     </ul>
                 </div>
@@ -68,6 +68,30 @@
         </div>
         <!-- end header nav-->
     </header>
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h6 class="center">Login into eBulletinBoard</h6>
+        <form>
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="first_name" type="text" class="validate">
+              <label for="first_name">Username</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="password" type="password" class="validate">
+              <label for="first_name">Password</label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Login</a>
+      </div>
+    </div>
 
 
 
@@ -260,6 +284,12 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
+  <script>
+  $(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+  });
+  </script>
  
 
   
