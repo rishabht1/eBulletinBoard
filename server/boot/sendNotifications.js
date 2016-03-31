@@ -1,34 +1,45 @@
 var app=require('../server.js')
 //mail=app.models.Email;
 async function sendMail(){
-	while(true){
 		console.log("hello");
 		var Uploaders=await app.models.Uploader.find();
-		var Viewer=await app.models.Viewer.find();
-		var Posts=await app.models.Posts.find();
+		//var Viewer=await app.models.Viewer.find();
+		//var Posts=await app.models.Posts.find();
 		console.log(Uploaders)
-		for (var i in Uploaders){
+		for (var i=0;i<Uploaders.length;i++){
 			console.log('hi')
-			var posts=await Posts.find({where:{and:[{uploaderId:Uploaders[i].id},
-				                                    {statDate:Date.now()}]}})
-			console.log(Uploaders[i].id);
-			var subscribers=Uploaders.subscriberList;
-			for(j in posts){
-				for(k in subscribers){
-					var user=await Viewer.find({where:{id:subscribers[k]}})
-					console.log(user);
+			var posts=await app.models.posts.find({where:{and:[{uploaderId:Uploaders[i].id}
+				                                    ]}})
+			console.log(posts);
+			var subscribers=Uploaders[i].subscriberList;
+			console.log(subscribers)
+			for(var j=0;j<posts.length;j++){
+				console.log('hiiii')
+				for(let k=0;k<subscribers.length;k++){
+					var user=await app.models.Viewer.find({where:{id:subscribers[k]}})
+					console.log(k);
 					await app.models.Email.send({
-						to:user[0].email,
-						from:'pareshp1997@gmail.com',
+						to:'sen2016.team4@gmail.com',
+						from:'sen2016.team4@gmail.com',
 						subject:'Hey..!!, today is'+ posts[j].name,
 						text:''
 					})
 				}
 			}
 		}
-		var p=0;
-		while(p!=1000000)
-			p++;
-	}
+		setTimeout(sendMail,10000)
+	/*var p=0;
+	while(p!=5){
+	await app.models.Email.send({
+						to:'abhishekjain951995@gmail.com',
+						from:'pareshp1997@gmail.com',
+						subject:'Hey..!!, today is',
+						text:''
+					})
+	p++;
+}*/
 }
-sendMail();
+async function loop(){
+	setTimeout(sendMail,1000)
+}
+loop()
