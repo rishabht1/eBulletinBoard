@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div id="id01"></div>
+
+<script>
+var xmlhttp = new XMLHttpRequest();
+var url = "http://0.0.0.0:3000/api/viewers/recent_nlfeed"
+
+
+xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        var myArr = JSON.parse(xmlhttp.responseText);
+        myFunction(myArr);
+    }
+};
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
+
+function myFunction(arr) {
+
+    var src = "";
+    var clubname="";
+    var postername="";
+    var description="";
+    var startDate="";
+    var likes="";
+    var endDate="";
+    var posterid="";
+    var like=[];
+
+    var i;
+    for(i = 0; i < arr.res.length; i++) {
+       posterid=arr.res[i].id;
+       postername=arr.res[i].name;
+       likes=arr.res[i].likes;
+       like=arr.res[i];
+
+       }
+    // out = 'jevjrhvjre'
+
+    document.getElementById("id01").innerHTML = out;
+}
+//document.getElementById("id01").innerHTML = '';
+</script>
+
+</body>
+</html>

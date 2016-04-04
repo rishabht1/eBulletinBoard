@@ -41,6 +41,7 @@
                             <li><a href="specific.html">DADC</a></li>
                             <li><a href="specific.html">GDG</a></li>
                             <li><a href="specific.html">Programming Club</a></li>
+                             <li><a href="specific.html">Programming Club</a></li>
                             <li class="divider"></li>
                             <li><a href="specific.html">Synapse Committee</a></li>
                             <li><a href="specific.html">Sports Committee</a></li>
@@ -117,13 +118,44 @@
   <h1 class="header center black-text text-lighten-2">eBulletinBoard</h1>
 
  
+  
 
-  <div class="container" >
-    <div class="section">
+     
+      <div id="id01"></div>
 
-      <div class="row">
-        <div class="col s12 m3">
-          <div class="card">
+<script>
+var xmlhttp = new XMLHttpRequest();
+var url = "http://0.0.0.0:3000/api/viewers/recent_nlfeed"
+
+
+xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        var myArr = JSON.parse(xmlhttp.responseText);
+        myFunction(myArr);
+    }
+};
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
+
+function myFunction(arr) {
+
+    var src = "";
+    var clubname="";
+    var postername="";
+    var description="";
+    var startDate="";
+    var likes="";
+    var endDate="";
+    var posterid="";
+    var like=[];
+
+    var i;
+    for(i = 0; i < arr.res.length; i++) {
+       posterid=arr.res[i].id;
+       postername=arr.res[i].name;
+       likes=arr.res[i].likes;
+       like=arr.res[i]
+       $("div").html("<div class="card">
             <div class="card-image waves-effect waves-block waves-light">
               <img class="activator" src="Images/1.jpg">
             </div>
@@ -135,13 +167,24 @@
               <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
               <p>Here is some more information about this product that is only revealed once clicked on.</p>
             </div>
-          </div>
-        </div>
+          </div>");
+       }
+    // out = 'jevjrhvjre'
 
+    document.getElementById("id01").innerHTML = out;
+}
+//document.getElementById("id01").innerHTML = '';
+</script>
+
+  <div class="container" >
+    <div class="section">
+
+
+      <div class="row">
         <div class="col s12 m3">
           <div class="card">
             <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="Images/2.jpg">
+              <img class="activator" src="http://lorempixel.com/g/200/300">
             </div>
             <div class="card-content">
               <span class="card-title activator grey-text text-darken-4">Card Title </span>
@@ -157,7 +200,7 @@
         <div class="col s12 m3">
           <div class="card">
             <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="Images/3.jpg">
+              <img class="activator" src="http://lorempixel.com/g/200/300">
             </div>
             <div class="card-content">
               <span class="card-title activator grey-text text-darken-4">Card Title </span>
@@ -173,7 +216,23 @@
         <div class="col s12 m3">
           <div class="card">
             <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="Images/4.jpg">
+              <img class="activator" src="http://lorempixel.com/g/200/300">
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">Card Title </span>
+              <p><a href="#">This is a link</a></p>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+              <p>Here is some more information about this product that is only revealed once clicked on.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m3">
+          <div class="card">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img class="activator" src="http://lorempixel.com/g/200/300">
             </div>
             <div class="card-content">
               <span class="card-title activator grey-text text-darken-4">Card Title </span>
@@ -191,7 +250,7 @@
         <div class="col s12 m3">
           <div class="card">
             <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="Images/5.jpg">
+              <img class="activator" src="http://lorempixel.com/g/200/300">
             </div>
             <div class="card-content">
               <span class="card-title activator grey-text text-darken-4">Card Title </span>
@@ -207,7 +266,7 @@
         <div class="col s12 m3">
           <div class="card">
             <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="Images/6.jpg">
+              <img class="activator" src="http://lorempixel.com/g/200/300">
             </div>
             <div class="card-content">
               <span class="card-title activator grey-text text-darken-4">Card Title </span>
@@ -223,7 +282,7 @@
         <div class="col s12 m3">
           <div class="card">
             <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="Images/7.jpg">
+              <img class="activator" src="http://lorempixel.com/g/200/300">
             </div>
             <div class="card-content">
               <span class="card-title activator grey-text text-darken-4">Card Title </span>
@@ -239,7 +298,7 @@
         <div class="col s12 m3">
           <div class="card">
             <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="Images/8.jpg">
+              <img class="activator" src="http://lorempixel.com/g/200/300">
             </div>
             <div class="card-content">
               <span class="card-title activator grey-text text-darken-4">Card Title </span>
@@ -279,17 +338,105 @@
     </div>
   </footer>
 
+<div id = "abhishek">
+</div>
+<script>
+
+for(i=1;i<3;i++){
+
+var row=document.createElement("div");
+row.setAttribute("class","row");
+
+var column=document.createElement("div");
+column.setAttribute("class","col s12 m3");
+
+
+var card=document.createElement("div");
+card.setAttribute("class","card");
+
+var card_image=document.createElement("div");
+card_image.setAttribute("class","card-image waves-effect waves-block waves-light");
+
+var image = document.createElement("IMG");
+image.setAttribute("src","https://pbs.twimg.com/profile_images/484529000379711488/DvibGHzz.jpeg");
+image.setAttribute("class","activator");
+
+card_image.appendChild(image);
+
+
+var card_content=document.createElement("div");
+card_content.setAttribute("class","card-content");
+
+var span=document.createElement("span");
+span.setAttribute("class","card-title activator grey-text text-darken-4");
+var title=document.createTextNode("Card Title");
+span.appendChild(title);
+
+
+var para=document.createElement("p");
+var link=document.createElement("a");
+link.setAttribute("href","#");
+var link_content=document.createTextNode("This is a link");
+
+link.appendChild(link_content);
+para.appendChild(link);
+
+card_content.appendChild(span);
+card_content.appendChild(para);
+
+
+var card_reveal=document.createElement("div");
+card_content.setAttribute("class","card-reveal");
+
+var span2=document.createElement("span");
+span2.setAttribute("class","card-title activator grey-text text-darken-4");
+var title2=document.createTextNode("Card Title");
+
+var icon = document.createElement("i");
+icon.setAttribute("class","material-icons right");
+var close=document.createTextNode("Close");
+
+icon.appendChild(close);
+span2.appendChild(title2);
+span2.appendChild(icon);
+
+var para2=document.createElement("p");
+var desc=document.createTextNode("Here is some more information about this product that is only revealed once clicked on.");
+para2.appendChild(desc);
+
+card_reveal.appendChild(span2);
+card_reveal.appendChild(para2);
+
+
+card.appendChild(card_image);
+card.appendChild(card_content);
+card.appendChild(card_reveal);
+
+column.appendChild(card);
+row.appendChild(column);
+
+var show  = document.getElementById("abhishek");
+show.appendChild(row);
+
+}
+
+</script>
+
 
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
   <script>
-  $(document).ready(function(){
-    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-    $('.modal-trigger').leanModal();
-  });
+      $(document).ready(function(){
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.modal-trigger').leanModal();
+      });
   </script>
+  <script>
+      $result.("http://0.0.0.0:3000/api/viewers/recent_nlfeed")
+  </script>
+  
  
 
   

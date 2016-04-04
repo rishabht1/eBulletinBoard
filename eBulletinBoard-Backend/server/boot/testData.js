@@ -40,12 +40,14 @@ var Uploaders;
            noOfPosts: 2,
            noOfSubscriber: 2,
            pPic : "string",
-           cPic: "string"},
+           cPic: "string",
+           subscriberList:['201301077','201301000']},
        {   id: "Debate",
            noOfPosts: 2,
            noOfSubscriber: 2,
            pPic: "string",
-           cPic: "string"},
+           cPic: "string",
+           subscriberList:['201301001','201301000']}
       ]);
       console.log('ans');
      // console.log(ans[0].id);
@@ -71,7 +73,7 @@ var Uploaders;
          poster: "string",
          description: "string",
          realeaseDate: Date.now()+(DAY_IN_MILLISECONDS*1),
-         startDate: Date.now()+(DAY_IN_MILLISECONDS*4),
+         startDate: Date.now(),
          endDate: Date.now()+(DAY_IN_MILLISECONDS*5),
          likes: 0,
           like:[],
@@ -83,7 +85,7 @@ var Uploaders;
          "poster": "string",
          "description": "string",
          "realeaseDate": Date.now()+(DAY_IN_MILLISECONDS*2),
-         "startDate": Date.now()+(DAY_IN_MILLISECONDS*4),
+         "startDate": Date.now(),
          "endDate": Date.now()+(DAY_IN_MILLISECONDS*5),
          "likes": 0,
           like:[],
@@ -95,7 +97,7 @@ var Uploaders;
          "poster": "string",
          "description": "string",
          "realeaseDate": Date.now()+(DAY_IN_MILLISECONDS*5),
-         "startDate": Date.now()+(DAY_IN_MILLISECONDS*6),
+         "startDate": Date.now(),
          "endDate": Date.now()+(DAY_IN_MILLISECONDS*6),
          "likes": 0,
           like:[],
