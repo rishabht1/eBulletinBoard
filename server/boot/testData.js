@@ -67,7 +67,7 @@ var Uploaders;
          like:[],
          type: true,
          uploaderId: Uploaders[0].id,
-         tags:"Pro programme"
+         tags:'Pro'
         },
        {name: "ProContest1",
          poster: "string",
@@ -79,7 +79,7 @@ var Uploaders;
           like:[],
          type: true,
          uploaderId: Uploaders[0].id,
-         tags:"Pro"
+         tags:'Pro'
         },
         {"name": "ProContest2",
          "poster": "string",
@@ -91,7 +91,7 @@ var Uploaders;
           like:[],
          "type": true,
          "uploaderId": Uploaders[1].id,
-         tags:"Pro"
+         tags:'Pro'
         },
        {"name": "ProContest3",
          "poster": "string",
@@ -103,7 +103,7 @@ var Uploaders;
           like:[],
          "type": true,
          "uploaderId": Uploaders[1].id,
-         tags:"Pro"
+         tags:'Pro'
         },
       ]);
        console.log('mcnx');

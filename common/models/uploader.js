@@ -1,6 +1,8 @@
 module.exports = function(Uploader) {
     Uploader.upload=async function(id,name,poster,desc,rd,sd,ed,type,tags){
         var check=Uploader.find({where:{id:id}})
+        var res;
+        try{
       	await Uploader.app.models.posts.create( {
   			"name": name,
   			"poster": poster,
@@ -14,6 +16,12 @@ module.exports = function(Uploader) {
 			  "type": type,
 			  "uploaderId": id
         });
+        res="success";
+      }
+      catch(e){
+        res="notsuccess";
+      }
+      return res;
     };
     Uploader.recent_feed=async function(id){
    	var res;
@@ -53,7 +61,7 @@ module.exports = function(Uploader) {
                                       {arg:'ed',type:'Date',required:true},
                                       {arg:'type',type:'boolean',required:true},
                                       {arg:'tags',type:'array',required:true}],
-                             returns:{arg:'res',type:'array'},
+                             returns:{arg:'res',type:'string'},
                                  http: {path: '/upload', verb: 'get'}
                              })
    Uploader.remoteMethod('recent_feed',{
