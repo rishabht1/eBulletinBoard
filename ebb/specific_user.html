@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
   <title>eBulletinBoard</title>
 
@@ -9,19 +9,65 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  
-  
-
 </head>
+
+
 <body bgcolor="#fffff0">
+
+  <div id="testing">rishabh</div>
+  <script LANGUAGE="JavaScript">
+    ​  function uploadPoster() {
+      alert("Paresh ka karnama");
+    ​
+      var test="abhishek";
+      document.getElementById("testing").innerHTML=test;
+      // getting data from form
+      var dataForm = document.forms[0];
+      var eventName = dataForm.eventName.value;
+      var timeFrom = dataForm.timeFrom.value;
+      var timeTo = dataForm.timeTo.value;
+      var date = dataForm.date.value;
+      var description = dataForm.description.value;
+      
+      //not coded by Rishabh yet
+      var src = "http://data.whicdn.com/images/23690152/large.jpg";
+      var uploaderid = "this.getUploaderName";
+      var releaseDate = "2012-09-05";
+      var temporary = "false";
+      var tags = "";
+    ​
+      //uploading to database
+      var xmlhttp = new XMLHttpRequest();
+      var url = "http://0.0.0.0:3000/api/uploaders/upload?id="+uploaderid+"&name="+eventName+"&poster="+src+"&desc="+description+"&rd="+releaseDate+"&sd="+timeFrom+"&ed="+timeTo+"&type="+temporary+"&tags="+tags;
+    ​
+      xmlhttp.onreadystatechange = function() {
+          if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+              var myArr = JSON.parse(xmlhttp.responseText);
+              myFunction(myArr);
+          }
+      };
+      xmlhttp.open("GET", url, true);
+      xmlhttp.send();
+      function myFunction(arr) {
+        if(arr.res=="success"){
+          //dialog box for successful post upload
+          alert("successful");
+          return true;
+        }else{
+          alert("unsuccessful");//dialog box for unsuccessful post upload
+          return false;
+        }
+      }
+    }
+​</script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
   
 
-  <header id="header" class="page-topbar">
+    <header id="header" class="page-topbar">
         <!-- start header nav-->
         <div class="navbar-fixed">
             <nav class="cyan">
                 <div class="nav-wrapper">                    
-                    
                     <ul class="left">                      
                       <li><h1 class="logo-wrapper"><a href="index.html" class="brand-logo darken-1"><img src="Images/Logo.png" height="60px"alt="eBulletinBoard"></a> <span class="logo-text">Materialize</span></h1></li>
                     </ul>
@@ -30,7 +76,6 @@
                         <input type="text" name="Search" class="header-search-input z-depth-2"/>
                     </div>
                     <ul class="right hide-on-med-and-down">                        
-                        
                         <li><a href="javascript:void(0);" class='dropdown-button btn-floating mdi-navigation-menu' href='#' data-activates='dropdown1' ></a>
                           <ul id='dropdown1' class='dropdown-content' >
                             <li><a href="#!">Debate Club</a></li>
@@ -48,19 +93,21 @@
                             <li><a href="#!">Hostel Management Committee</a></li>
                             <li><a href="#!">SPC</a></li>
                           </ul>
-                        </li>                        
+                        </li>
+
                         <li>
-                          <div class="switch">
-                          <label>
-                            Home
-                            <input type="checkbox">
-                            <span class="lever"></span>
-                            Personal
-                          </label>
-                          </div>
-                        </li>                        
+                            <div class="switch">
+                                <label>
+                                    Home
+                                    <input type="checkbox">
+                                    <span class="lever"></span>
+                                    Personal
+                                </label>
+                            </div>
+                        </li>
+
                         <li>
-                          <a href="login.html">Login</a>
+                            <a href="login.html">Login</a>
                         </li>
                     </ul>
                 </div>
@@ -69,289 +116,280 @@
         <!-- end header nav-->
     </header>
 
+    
+
     <div class="container cyan lighten-4">
         <div class="center" style="padding-top: 2rem; padding-bottom: 2rem;">
-          <img src="http://lorempixel.com/200/200" alt="" class="circle responsive-img">
-          <h3 class="header center text-lighten-1">The Debate Club</h3>
-          <!-- Modal Trigger -->
-          <a class="waves-effect cyan waves-light btn modal-trigger" href="#modal1">Upload An Event</a>
+            <img src="http://lorempixel.com/200/200" alt="" class="circle responsive-img">
+            <h3 class="header center text-lighten-1">The Debate Club</h3>
+            <!-- Modal Trigger -->
+            <a class="waves-effect cyan waves-light btn modal-trigger" href="#modal1">Upload An Event</a>
 
-          <!-- Modal Structure -->
-          <div id="modal1" class="modal">
-            <div class="modal-content">
-              <h5><u>Uplaod an event</u></h5>
-              <div class="row">
-              <form class="col s12">
-                <div class="row">
-                  <div class="input-field col s6">
-                    <input id="first_name" type="text" class="validate">
-                    <label for="first_name">Name of the event</label>
-                  </div>
+            <!-- Modal Structure -->
+            <div ng-app = "form">
+                <div id="modal1" class="modal">
+                    <div class="modal-content">
+                        <h5><u>Uplaod an event</u></h5>
+                        <div class="row">
+                            <form class="col s12">
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <input name="eventName" value="" id="first_name" type="text" class="validate">
+                                        <label for="first_name">Name of the event</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <input name="timeFrom" value="" id="last_name" type="text" class="validate">
+                                        <label for="last_name">Time : From</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <input name="timeTo" value="" id="last_name" type="text" class="validate">
+                                        <label for="last_name">Time : To</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <input name="date" value="" id="password" type="date" class="datepicker">
+                                        <label for="password">Date</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <textarea name="description" value="" id="textarea1" class="materialize-textarea"></textarea>
+                                        <label for="textarea1">Description</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#modal2" class=" modal-action modal-close waves-effect waves-green btn-flat modal-trigger">Next</a>
+                        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+                    </div>
                 </div>
-                <div class="row">
-                  <div class="input-field col s6">
-                    <input id="last_name" type="text" class="validate">
-                    <label for="last_name">Time : From</label>
-                  </div>
-                  <div class="input-field col s6">
-                    <input id="last_name" type="text" class="validate">
-                    <label for="last_name">Time : To</label>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="input-field col s6">
-                    <input id="password" type="date" class="datepicker">
-                    <label for="password">Date</label>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="input-field col s12">
-                    <textarea id="textarea1" class="materialize-textarea"></textarea>
-                    <label for="textarea1">Description</label>
-                  </div>
-                </div>
-              </form>
-            </div>
-            </div>
-            <div class="modal-footer">
-              <a href="#modal2" class=" modal-action modal-close waves-effect waves-green btn-flat modal-trigger">Next</a>
-              <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
-            </div>
-          </div>
-          <!--<a class="waves-effect cyan waves-light btn modal-trigger" href="#modal2">Upload Poster</a>-->
 
-          <!-- Modal Structure -->
-          <div id="modal2" class="modal">
-            <div class="modal-content">
-              <h5><u>Uplaod Poster</u></h5>
-              <div class="row">
-                <div class="col s12 m3">
-                  <img src = "Images/template0.png" height = "180px" width = "120px">
+          
+                <!-- Modal Structure -->
+                <div id="modal2" class="modal">
+                    <div class="modal-content">
+                        <h5><u>Uplaod Poster</u></h5>
+                        <div class="row">
+                            <div class="col s12 m3">
+                                <div class="file-field input-field">
+                                    <img src = "Images/template0.png" height = "180px" width = "120px">
+                                    <input type="file">
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s12 m3">
+                                <img src = "Images/template1.png" height = "180px" width = "120px">
+                            </div>
+                            <div class="col s12 m3">
+                                <img src = "Images/template2.png" height = "180px" width = "120px">
+                            </div>
+                            <div class="col s12 m3">
+                                <img src = "Images/template3.png" height = "180px" width = "120px">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat" onclick="{alert('Y">Post</a>
+                        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Back</a>
+                    </div>
                 </div>
-                <div class="col s12 m3">
-                  <img src = "Images/template1.png" height = "180px" width = "120px">
-                </div>
-                <div class="col s12 m3">
-                  <img src = "Images/template2.png" height = "180px" width = "120px">
-                </div>
-                <div class="col s12 m3">
-                  <img src = "Images/template3.png" height = "180px" width = "120px">
-                </div>
-              </div>
             </div>
-            <div class="modal-footer">
-              <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Post</a>
-              <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Back</a>
-            </div>
-          </div>
         </div>
-        
     </div>
 
     <hr>
-    <div class="container">
-     <div class="row">
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h5 class="center"><b>Upcoming Event</b></h5>
-            <p class="light center">Senate Parliamentary Debate</p>
-          </div>
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h5 class="center"><b>Upcoming Event</b></h5>
+                        <p class="light center">Senate Parliamentary Debate</p>
+                    </div>
+                </div>
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h5 class="center"><b>Posts</b></h5>
+                        <p class="light center">51</p>
+                    </div>
+                </div>
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h5 class="center"><b>Subscribers</b></h5>
+                        <p class="light center">672</p>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h5 class="center"><b>Posts</b></h5>
-            <p class="light center">51</p>
-          </div>
-        </div>
-
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h5 class="center"><b>Subscribers</b></h5>
-            <p class="light center">672</p>
-          </div>
-        </div>
-        
-      </div>
-    </div>
     <hr>
 
     <h5 class = "center">Previous Posts</h5>
 
     <div class="container" >
-    <div class="section">
-
-      <div class="row">
-        <div class="col s12 m3">
-          <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="Images/1.jpg">
+        <div class="section">
+            <div class="row">
+                <div class="col s12 m3">
+                    <div class="card">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" src="http://lorempixel.com/g/200/300">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title activator grey-text text-darken-4">Card Title </span>
+                            <p><a href="#">This is a link</a></p>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                            <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m3">
+                    <div class="card">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" src="http://lorempixel.com/g/200/300">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title activator grey-text text-darken-4">Card Title </span>
+                            <p><a href="#">This is a link</a></p>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                            <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m3">
+                    <div class="card">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" src="http://lorempixel.com/g/200/300">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title activator grey-text text-darken-4">Card Title </span>
+                            <p><a href="#">This is a link</a></p>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                            <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m3">
+                    <div class="card">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" src="http://lorempixel.com/g/200/300">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title activator grey-text text-darken-4">Card Title </span>
+                            <p><a href="#">This is a link</a></p>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                            <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m3">
+                    <div class="card">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" src="http://lorempixel.com/g/200/300">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title activator grey-text text-darken-4">Card Title </span>
+                            <p><a href="#">This is a link</a></p>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                            <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m3">
+                    <div class="card">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" src="http://lorempixel.com/g/200/300">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title activator grey-text text-darken-4">Card Title </span>
+                            <p><a href="#">This is a link</a></p>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                            <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m3">
+                    <div class="card">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" src="http://lorempixel.com/g/200/300">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title activator grey-text text-darken-4">Card Title </span>
+                            <p><a href="#">This is a link</a></p>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                            <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m3">
+                    <div class="card">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" src="http://lorempixel.com/g/200/300">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title activator grey-text text-darken-4">Card Title </span>
+                            <p><a href="#">This is a link</a></p>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                            <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">Card Title </span>
-              <p><a href="#">This is a link</a></p>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p>Here is some more information about this product that is only revealed once clicked on.</p>
-            </div>
-          </div>
         </div>
-
-        <div class="col s12 m3">
-          <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="Images/2.jpg">
-            </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">Card Title </span>
-              <p><a href="#">This is a link</a></p>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p>Here is some more information about this product that is only revealed once clicked on.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col s12 m3">
-          <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="Images/3.jpg">
-            </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">Card Title </span>
-              <p><a href="#">This is a link</a></p>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p>Here is some more information about this product that is only revealed once clicked on.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col s12 m3">
-          <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="Images/4.jpg">
-            </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">Card Title </span>
-              <p><a href="#">This is a link</a></p>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p>Here is some more information about this product that is only revealed once clicked on.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s12 m3">
-          <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="Images/5.jpg">
-            </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">Card Title </span>
-              <p><a href="#">This is a link</a></p>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p>Here is some more information about this product that is only revealed once clicked on.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col s12 m3">
-          <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="Images/6.jpg">
-            </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">Card Title </span>
-              <p><a href="#">This is a link</a></p>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p>Here is some more information about this product that is only revealed once clicked on.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col s12 m3">
-          <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="Images/7.jpg">
-            </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">Card Title </span>
-              <p><a href="#">This is a link</a></p>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p>Here is some more information about this product that is only revealed once clicked on.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col s12 m3">
-          <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="Images/8.jpg">
-            </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">Card Title </span>
-              <p><a href="#">This is a link</a></p>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p>Here is some more information about this product that is only revealed once clicked on.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    
     </div>
-  </div>
 
-  <footer class="page-footer cyan">
-    <div class="container">
-      <div class="row">
-        <div class="col 12">
-          <h5 class="white-text">About Us</h5>
-          <p class="grey-text text-lighten-4">We are all about taking the bulletin board online and to bringing all the information on your laptop at once in an organised and attractive manner.</p>
-
-
+    <footer class="page-footer cyan">
+        <div class="container">
+            <div class="row">
+                <div class="col 12">
+                    <h5 class="white-text">About Us</h5>
+                    <p class="grey-text text-lighten-4">We are all about taking the bulletin board online and to bringing all the information on your laptop at once in an organised and attractive manner.</p>
+                </div>
+            </div>
         </div>
-        
-       
-      </div>
-    </div>
-    <div class="footer-copyright">
-      <div class="container">
-      Made by <a class="brown-text" href="index.html">Team 4 - Software Engineering</a>
-      </div>
-    </div>
-  </footer>
+        <div class="footer-copyright">
+            <div class="container">
+                Made by <a class="brown-text" href="index.html">Team 4 - Software Engineering</a>
+            </div>
+        </div>
+    </footer>
 
 
     <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="js/materialize.js"></script>
-  <script src="js/init.js"></script>
-  <script>
-  $(document).ready(function(){
-    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-    $('.modal-trigger').leanModal();
-  });
-  </script>
-  <script>
-  $('.datepicker').pickadate({
-    selectMonths: true, // Creates a dropdown to control month
-    selectYears: 15 // Creates a dropdown of 15 years to control year
-  });
-  </script>
-  </body>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="js/materialize.js"></script>
+    <script src="js/init.js"></script>
+    <script>
+        $(document).ready(function(){
+            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+            $('.modal-trigger').leanModal();
+        });
+    </script>
+    <script>
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15 // Creates a dropdown of 15 years to control year
+        });
+    </script>
+</body>
 </html>

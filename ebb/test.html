@@ -1,49 +1,157 @@
-<!DOCTYPE html>
-<html>
-<body>
-
-<div id="id01"></div>
-
-<script>
-var xmlhttp = new XMLHttpRequest();
-var url = "http://0.0.0.0:3000/api/viewers/recent_nlfeed"
-
-
-xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        var myArr = JSON.parse(xmlhttp.responseText);
-        myFunction(myArr);
-    }
-};
-xmlhttp.open("GET", url, true);
-xmlhttp.send();
-
-function myFunction(arr) {
-
-    var src = "";
-    var clubname="";
-    var postername="";
-    var description="";
-    var startDate="";
-    var likes="";
-    var endDate="";
-    var posterid="";
-    var like=[];
-
-    var i;
-    for(i = 0; i < arr.res.length; i++) {
-       posterid=arr.res[i].id;
-       postername=arr.res[i].name;
-       likes=arr.res[i].likes;
-       like=arr.res[i];
-
-       }
-    // out = 'jevjrhvjre'
-
-    document.getElementById("id01").innerHTML = out;
+<HTML>
+<HEAD>
+<TITLE>Test Input</TITLE>
+​
+​
+​
+<div id="102">
+</div>
+​
+<SCRIPT LANGUAGE="JavaScript">
+/*
+var tr="halalooyah"
+​
+function testResults (form) {
+​
+  var form2=document.forms[0]
+    var TestVar = form2.inputbox.value;
+    alert ("You typed: " + TestVar);
+    tr=TestVar;
+document.getElementById("102").innerHTML=tr;
 }
-//document.getElementById("id01").innerHTML = '';
+​
+​
+function uploadPoster() {
+  
+  alert("Hi Welcome to UploadPoster");
+​
+    // getting data from form
+    var dataForm = document.forms[1];
+    var eventName = dataForm.eventName.value;
+    var timeFrom = dataForm.timeFrom.value;
+    var timeTo = dataForm.timeTo.value;
+    var date = dataForm.date.value;
+    var description = dataForm.description.value;
+    
+    //not coded by Rishabh yet
+    var src = "http://data.whicdn.com/images/23690152/large.jpg";
+    var uploaderid = "debate";
+    var releaseDate = "2012-09-05";
+    var temporary = "false";
+    var tags = "dtg";
+​
+    //uploading to database
+    var xmlhttp = new XMLHttpRequest();
+    var url = "http://0.0.0.0:3000/api/uploaders/upload?id="+uploaderid+"&name="+eventName+"&poster="+src+"&desc="+description+"&rd="+releaseDate+"&sd="+timeFrom+"&ed="+timeTo+"&type="+temporary+"&tags="+tags;
+​
+    alert("Hi Welcome to UploadPoster"+url);
+​
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            var myArr = JSON.parse(xmlhttp.responseText);
+            myFunction(myArr);
+        }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+    function myFunction(arr) {
+      if(arr.res=="success"){
+        //dialog box for successful post upload
+        return true;
+      }else{
+        //dialog box for unsuccessful post upload
+        return false;
+      }
+    }
+ }
+​
+document.getElementById("102").innerHTML=tr;*/
+</SCRIPT>
+</HEAD>
+<BODY>
+​
+<script>
+function uploadPoster() {
+​
+  // getting data from form
+  
+  var dataForm = document.forms[1];
+  var eventName = dataForm.eventName.value;
+  var timeFrom = dataForm.timeFrom.value;
+  var timeTo = dataForm.timeTo.value;
+  var date = dataForm.date.value;
+  var description = dataForm.description.value;
+  
+  //not coded by Rishabh yet
+  var src = "http://data.whicdn.com/images/23690152/large.jpg";
+  var uploaderid = "this.getUploaderName";
+  var releaseDate = "2012-09-05";
+  var temporary = "false";
+  var tags = "";
+​
+  //uploading to database
+  var xmlhttp = new XMLHttpRequest();
+  var url = "http://0.0.0.0:3000/api/uploaders/upload?id="+uploaderid+"&name="+eventName+"&poster="+src+"&desc="+description+"&rd="+releaseDate+"&sd="+timeFrom+"&ed="+timeTo+"&type="+temporary+"&tags="+tags;
+  alert("Hi Welcome to UploadPoster"+url);
+​
+  xmlhttp.onreadystatechange = function() {
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+          var myArr = JSON.parse(xmlhttp.responseText);
+          myFunction(myArr);
+      }
+  };
+  xmlhttp.open("GET", url, true);
+  xmlhttp.send();
+  function myFunction(arr) {
+    if(arr.res=="success"){
+      //dialog box for successful post upload
+      return true;
+    }else{
+      //dialog box for unsuccessful post upload
+      return false;
+    }
+  }
+}
 </script>
-
-</body>
-</html>
+​
+​
+​
+​
+<FORM NAME="myform" ACTION="" METHOD="GET">Enter something in the box: <BR>
+<INPUT TYPE="text" NAME="inputbox" VALUE=""><P>
+<INPUT TYPE="button" NAME="button" Value="Click" onClick="uploadPoster()">
+</FORM>
+​
+<form class="col s12">
+  <div class="row">
+    <div class="input-field col s6">
+      <input name="eventName" value="" id="first_name" type="text" class="validate">
+      <label for="first_name">Name of the event</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s6">
+      <input name="timeFrom" value="" id="last_name" type="text" class="validate">
+      <label for="last_name">Time : From</label>
+    </div>
+    <div class="input-field col s6">
+      <input name="timeTo" value="" id="last_name" type="text" class="validate">
+      <label for="last_name">Time : To</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s6">
+      <input name="date" value="" id="password" type="date" class="datepicker">
+      <label for="password">Date</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <textarea name="description" value="" id="textarea1" class="materialize-textarea"></textarea>
+      <label for="textarea1">Description</label>
+    </div>
+  </div>
+</form>
+​
+</BODY>
+</HTML>

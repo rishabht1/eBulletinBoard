@@ -1,23 +1,85 @@
-<!DOCTYPE html>
-<html>
-<body>
-
-<div id="id01"><p>buceuce</p></div>
+<HTML>
+<HEAD>
+<TITLE>Test Input</TITLE>
 
 
-<script>
 
+<div id="102">
+</div>
 
-	var k = 0;
-	for(i = 0; i < 5; i++) {
-		k+=''+i;
-		}
-		document.createElement()
-	
+<SCRIPT LANGUAGE="JavaScript">
 
+              function abcd() {
+                alert("dkjqdwq");
+              }
+​
+              function rishabh() {
+              alert("Paresh ka karnama");
+            ​
+              var test="abhishek";
+              document.getElementById("testing").innerHTML=test;
+              // getting data from form
+              var dataForm = document.forms[0];
+              var eventName = dataForm.eventName.value;
+              var timeFrom = dataForm.timeFrom.value;
+              var timeTo = dataForm.timeTo.value;
+              var date = dataForm.date.value;
+              var description = dataForm.description.value;
+              
+              //not coded by Rishabh yet
+              var src = "http://data.whicdn.com/images/23690152/large.jpg";
+              var uploaderid = "this.getUploaderName";
+              var releaseDate = "2012-09-05";
+              var temporary = "false";
+              var tags = "";
+            ​
+              //uploading to database
+              var xmlhttp = new XMLHttpRequest();
+              var url = "http://0.0.0.0:3000/api/uploaders/upload?id="+uploaderid+"&name="+eventName+"&poster="+src+"&desc="+description+"&rd="+releaseDate+"&sd="+timeFrom+"&ed="+timeTo+"&type="+temporary+"&tags="+tags;
+            ​
+              xmlhttp.onreadystatechange = function() {
+                  if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                      var myArr = JSON.parse(xmlhttp.responseText);
+                      myFunction(myArr);
+                  }
+              };
+              xmlhttp.open("GET", url, true);
+              xmlhttp.send();
+              function myFunction(arr) {
+                if(arr.res=="success"){
+                  //dialog box for successful post upload
+                  alert("successful");
+                  return true;
+                }else{
+                  alert("unsuccessful");//dialog box for unsuccessful post upload
+                  return false;
+                }
+              }
+            }
+​
+​
+</SCRIPT>
 
-</script>
+<SCRIPT LANGUAGE="JavaScript">
 
+var tr="halalooyah"
 
-</body>
-</html>
+function testResults (form) {
+
+    var form2=document.forms[0]
+   var TestVar = form2.inputbox.value;
+   alert ("You typed: " + TestVar);
+   tr=TestVar;
+document.getElementById("102").innerHTML=tr;
+}
+
+document.getElementById("102").innerHTML=tr;
+</SCRIPT>
+</HEAD>
+<BODY>
+<FORM NAME="myform" ACTION="" METHOD="GET">Enter something in the box: <BR>
+<INPUT TYPE="text" NAME="inputbox" VALUE=""><P>
+<INPUT TYPE="button" NAME="button" Value="Click" onClick="abcd()">
+</FORM>
+</BODY>
+</HTML>

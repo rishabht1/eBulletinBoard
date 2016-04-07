@@ -1,445 +1,648 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-  <title>eBulletinBoard</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+   <title>eBulletinBoard</title>
 
-  <!-- CSS  -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  
-  
-
+   <!-- CSS  -->
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
+
 <body bgcolor="#fffff0">
   
+   <header id="header" class="page-topbar">
+      <!-- start header nav-->
+      <div class="navbar-fixed">
+         <nav class="cyan">
+            <div class="nav-wrapper">                    
+               <ul class="left">                      
+                  <li><h1 class="logo-wrapper"><a href="index.html" class="brand-logo darken-1"><img src="Images/Logo.png" height="60px"alt="eBulletinBoard"></a> <span class="logo-text">eBulletinBoard</span></h1></li>
+               </ul>
+               <div class="header-search-wrapper hide-on-med-and-down">
+                  <i class="mdi-action-search"></i>
+                  <input type="text" name="Search" class="header-search-input z-depth-2"/>
+               </div>
+               <ul class="right hide-on-med-and-down">                        
+                  <li><a href="javascript:void(0);" class='dropdown-button btn-floating mdi-navigation-menu' href='#' data-activates='dropdown1' ></a>
+                     <ul id='dropdown1' class='dropdown-content' >
+                        <li><a href="specific_user.html">Debate Club</a></li>
+                        <li><a href="specific.html">Press Club</a></li>
+                        <li><a href="specific.html">Headrush</a></li>
+                        <li><a href="specific.html">DTG</a></li>
+                        <li><a href="specific.html">Music Club</a></li>
+                        <li><a href="specific.html">DADC</a></li>
+                        <li><a href="specific.html">GDG</a></li>
+                        <li><a href="specific.html">Programming Club</a></li>
+                        <li><a href="specific.html">Programming Club</a></li>
+                        <li class="divider"></li>
+                        <li><a href="specific.html">Synapse Committee</a></li>
+                        <li><a href="specific.html">Sports Committee</a></li>
+                        <li><a href="specific.html">Academic Committee</a></li>
+                        <li><a href="specific.html">Hostel Management Committee</a></li>
+                        <li><a href="specific.html">SPC</a></li>
+                     </ul>
+                  </li>                        
+                  <li>
+                     <div class="switch">
+                        <label>
+                           Home
+                           <input type="checkbox">
+                           <span class="lever"></span>
+                           Personal
+                        </label>
+                     </div>
+                  </li>                        
+                  <li>
+                     <a class = "modal-trigger" href="#modal1">Login</a>
+                  </li>
+               </ul>
+            </div>
+         </nav>
+      </div>
+      <!-- end header nav-->
+   </header>
 
-  <header id="header" class="page-topbar">
-        <!-- start header nav-->
-        <div class="navbar-fixed">
-            <nav class="cyan">
-                <div class="nav-wrapper">                    
-                    
-                    <ul class="left">                      
-                      <li><h1 class="logo-wrapper"><a href="index.html" class="brand-logo darken-1"><img src="Images/Logo.png" height="60px"alt="eBulletinBoard"></a> <span class="logo-text">eBulletinBoard</span></h1></li>
-                    </ul>
-                    <div class="header-search-wrapper hide-on-med-and-down">
-                        <i class="mdi-action-search"></i>
-                        <input type="text" name="Search" class="header-search-input z-depth-2"/>
-                    </div>
-                    <ul class="right hide-on-med-and-down">                        
-                        
-                        <li><a href="javascript:void(0);" class='dropdown-button btn-floating mdi-navigation-menu' href='#' data-activates='dropdown1' ></a>
-                          <ul id='dropdown1' class='dropdown-content' >
-                            <li><a href="specific_user.html">Debate Club</a></li>
-                            <li><a href="specific.html">Press Club</a></li>
-                            <li><a href="specific.html">Headrush</a></li>
-                            <li><a href="specific.html">DTG</a></li>
-                            <li><a href="specific.html">Music Club</a></li>
-                            <li><a href="specific.html">DADC</a></li>
-                            <li><a href="specific.html">GDG</a></li>
-                            <li><a href="specific.html">Programming Club</a></li>
-                             <li><a href="specific.html">Programming Club</a></li>
-                            <li class="divider"></li>
-                            <li><a href="specific.html">Synapse Committee</a></li>
-                            <li><a href="specific.html">Sports Committee</a></li>
-                            <li><a href="specific.html">Academic Committee</a></li>
-                            <li><a href="specific.html">Hostel Management Committee</a></li>
-                            <li><a href="specific.html">SPC</a></li>
-                          </ul>
-                        </li>                        
-                        <li>
-                          <div class="switch">
-                          <label>
-                            Home
-                            <input type="checkbox">
-                            <span class="lever"></span>
-                            Personal
-                          </label>
-                          </div>
-                        </li>                        
-                        <li>
-                          <a class = "modal-trigger" href="#modal1">Login</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-        <!-- end header nav-->
-    </header>
-
-    <!-- Modal Structure -->
-    <div id="modal1" class="modal">
+   <!-- Modal Structure -->
+   <div id="modal1" class="modal">
       <div class="modal-content">
-        <h6 class="center">Login into eBulletinBoard</h6>
-        <form>
-          <div class="row">
-            <div class="input-field col s6">
-              <input id="first_name" type="text" class="validate">
-              <label for="first_name">Username</label>
+         <h6 class="center">Login into eBulletinBoard</h6>
+         <form>
+            <div class="row">
+               <div class="input-field col s6">
+                  <input id="first_name" type="text" class="validate">
+                  <label for="first_name">Username</label>
+               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s6">
-              <input id="password" type="password" class="validate">
-              <label for="first_name">Password</label>
+            <div class="row">
+               <div class="input-field col s6">
+                  <input id="password" type="password" class="validate">
+                  <label for="first_name">Password</label>
+               </div>
             </div>
-          </div>
-        </form>
+         </form>
       </div>
       <div class="modal-footer">
-        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Login</a>
+         <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Login</a>
       </div>
-    </div>
+   </div>
 
 
-
-   
-
-
-
-
-  <div id="index-banner" class="parallax-container">
-
-    <div class="section no-pad-bot">
-      <div class="container">
-        <br><br>
-        <br><br>
+   <div id="index-banner" class="parallax-container">
+      <div class="section no-pad-bot">
+         <div class="container">
+            <br><br>
+            <br><br>
+         </div>
       </div>
-    </div>
-    <div class="row">
-        <div class="col s12">
-          <div class="parallax"><img class = "responsive-img" src="Images/SplashScreen.png" height="743px" width="1440px"></div>
-        </div>
-    </div>
-  </div>
-  <h1 class="header center black-text text-lighten-2">eBulletinBoard</h1>
+      <div class="row">
+         <div class="col s12">
+            <div class="parallax"><img class = "responsive-img" src="Images/SplashScreen.png" height="743px" width="1440px"></div>
+         </div>
+      </div>
+   </div>
+   <h1 class="header center black-text text-lighten-2">eBulletinBoard</h1>
 
  
-  
+   <div id="id01"></div>
 
-     
-      <div id="id01"></div>
-
-<script>
-var xmlhttp = new XMLHttpRequest();
-var url = "http://0.0.0.0:3000/api/viewers/recent_nlfeed"
+                           <script>
+                           var xmlhttp = new XMLHttpRequest();
+                           var url = "http://0.0.0.0:3000/api/viewers/recent_nlfeed"
 
 
-xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        var myArr = JSON.parse(xmlhttp.responseText);
-        myFunction(myArr);
-    }
-};
-xmlhttp.open("GET", url, true);
-xmlhttp.send();
+                           xmlhttp.onreadystatechange = function() {
+                               if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                                   var myArr = JSON.parse(xmlhttp.responseText);
+                                   myFunction(myArr);
+                               }
+                           };
+                           xmlhttp.open("GET", url, true);
+                           xmlhttp.send();
 
-function myFunction(arr) {
+                           function myFunction(arr) {
 
-    var src = "";
-    var clubname="";
-    var postername="";
-    var description="";
-    var startDate="";
-    var likes="";
-    var endDate="";
-    var posterid="";
-    var like=[];
+                               var src = "";
+                               var clubname="";
+                               var postername="";
+                               var description="";
+                               var startDate="";
+                               var likes="";
+                               var endDate="";
+                               var posterid="";
+                               var like=[];
 
-    var i;
-    for(i = 0; i < arr.res.length; i++) {
-       posterid=arr.res[i].id;
-       postername=arr.res[i].name;
-       likes=arr.res[i].likes;
-       like=arr.res[i]
-       $("div").html("<div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="Images/1.jpg">
-            </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">Card Title </span>
-              <p><a href="#">This is a link</a></p>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p>Here is some more information about this product that is only revealed once clicked on.</p>
-            </div>
-          </div>");
-       }
-    // out = 'jevjrhvjre'
+                               var i;
+                               for(i = 0; i < arr.res.length; i++) {
+                                  posterid=arr.res[i].id;
+                                  postername=arr.res[i].name;
+                                  likes=arr.res[i].likes;
+                                  like=arr.res[i]
+                                  $("div").html("<div class="card">
+                                       <div class="card-image waves-effect waves-block waves-light">
+                                         <img class="activator" src="http://lorempixel.com/g/200/300">
+                                       </div>
+                                       <div class="card-content">
+                                         <span class="card-title activator grey-text text-darken-4">Card Title </span>
+                                         <p><a href="#">This is a link</a></p>
+                                       </div>
+                                       <div class="card-reveal">
+                                         <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                                         <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                                       </div>
+                                     </div>");
+                                  }
+                               // out = 'jevjrhvjre'
 
-    document.getElementById("id01").innerHTML = out;
-}
-//document.getElementById("id01").innerHTML = '';
-</script>
+                               document.getElementById("id01").innerHTML = out;
+                           }
+                           //document.getElementById("id01").innerHTML = '';
+                           </script>
 
-  <div class="container" >
-    <div class="section">
-
-
-      <div class="row">
-        <div class="col s12 m3">
-          <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="http://lorempixel.com/g/200/300">
+   <div class="container" >
+     `<div class="section">
+         <div class="row">
+            <div class="col s12 m3">
+               <div class="card">
+                  <div class="card-image waves-effect waves-block waves-light">
+                     <img class="activator" src="http://lorempixel.com/g/200/300">
+                  </div>
+                  <div class="card-content">
+                     <span class="card-title activator grey-text text-darken-4">Card Title </span>
+                     <p><a href="#">This is a link</a></p>
+                  </div>
+                  <div class="card-reveal">
+                     <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                     <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                  </div>
+               </div>
             </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">Card Title </span>
-              <p><a href="#">This is a link</a></p>
+            <div class="col s12 m3">
+               <div class="card">
+                  <div class="card-image waves-effect waves-block waves-light">
+                     <img class="activator" src="http://lorempixel.com/g/200/300">
+                  </div>
+                  <div class="card-content">
+                     <span class="card-title activator grey-text text-darken-4">Card Title </span>
+                     <p><a href="#">This is a link</a></p>
+                  </div>
+                  <div class="card-reveal">
+                     <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                     <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                  </div>
+               </div>
             </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p>Here is some more information about this product that is only revealed once clicked on.</p>
+            <div class="col s12 m3">
+               <div class="card">
+                  <div class="card-image waves-effect waves-block waves-light">
+                     <img class="activator" src="http://lorempixel.com/g/200/300">
+                  </div>
+                  <div class="card-content">
+                     <span class="card-title activator grey-text text-darken-4">Card Title </span>
+                     <p><a href="#">This is a link</a></p>
+                  </div>
+                  <div class="card-reveal">
+                     <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                     <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                  </div>
+               </div>
             </div>
-          </div>
-        </div>
-
-        <div class="col s12 m3">
-          <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="http://lorempixel.com/g/200/300">
+            <div class="col s12 m3">
+               <div class="card">
+                  <div class="card-image waves-effect waves-block waves-light">
+                     <img class="activator" src="http://lorempixel.com/g/200/300">
+                  </div>
+                  <div class="card-content">
+                     <span class="card-title activator grey-text text-darken-4">Card Title </span>
+                     <p><a href="#">This is a link</a></p>
+                  </div>
+                  <div class="card-reveal">
+                     <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                     <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                  </div>
+               </div>
             </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">Card Title </span>
-              <p><a href="#">This is a link</a></p>
+            <div class="col s12 m3">
+               <div class="card">
+                  <div class="card-image waves-effect waves-block waves-light">
+                     <img class="activator" src="http://lorempixel.com/g/200/300">
+                  </div>
+                  <div class="card-content">
+                     <span class="card-title activator grey-text text-darken-4">Card Title </span>
+                     <p><a href="#">This is a link</a></p>
+                  </div>
+                  <div class="card-reveal">
+                     <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                     <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                  </div>
+               </div>
             </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p>Here is some more information about this product that is only revealed once clicked on.</p>
+            <div class="col s12 m3">
+               <div class="card">
+                  <div class="card-image waves-effect waves-block waves-light">
+                     <img class="activator" src="http://lorempixel.com/g/200/300">
+                  </div>
+                  <div class="card-content">
+                     <span class="card-title activator grey-text text-darken-4">Card Title </span>
+                     <p><a href="#">This is a link</a></p>
+                  </div>
+                  <div class="card-reveal">
+                     <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                     <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                  </div>
+               </div>
             </div>
-          </div>
-        </div>
-
-        <div class="col s12 m3">
-          <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="http://lorempixel.com/g/200/300">
+            <div class="col s12 m3">
+               <div class="card">
+                  <div class="card-image waves-effect waves-block waves-light">
+                     <img class="activator" src="http://lorempixel.com/g/200/300">
+                  </div>
+                  <div class="card-content">
+                     <span class="card-title activator grey-text text-darken-4">Card Title </span>
+                     <p><a href="#">This is a link</a></p>
+                  </div>
+                  <div class="card-reveal">
+                     <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                     <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                  </div>
+               </div>
             </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">Card Title </span>
-              <p><a href="#">This is a link</a></p>
+            <div class="col s12 m3">
+               <div class="card">
+                  <div class="card-image waves-effect waves-block waves-light">
+                     <img class="activator" src="http://lorempixel.com/g/200/300">
+                  </div>
+                  <div class="card-content">
+                     <span class="card-title activator grey-text text-darken-4">Card Title </span>
+                     <p><a href="#">This is a link</a></p>
+                  </div>
+                  <div class="card-reveal">
+                     <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                     <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                  </div>
+               </div>
             </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p>Here is some more information about this product that is only revealed once clicked on.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col s12 m3">
-          <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="http://lorempixel.com/g/200/300">
-            </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">Card Title </span>
-              <p><a href="#">This is a link</a></p>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p>Here is some more information about this product that is only revealed once clicked on.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s12 m3">
-          <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="http://lorempixel.com/g/200/300">
-            </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">Card Title </span>
-              <p><a href="#">This is a link</a></p>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p>Here is some more information about this product that is only revealed once clicked on.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col s12 m3">
-          <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="http://lorempixel.com/g/200/300">
-            </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">Card Title </span>
-              <p><a href="#">This is a link</a></p>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p>Here is some more information about this product that is only revealed once clicked on.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col s12 m3">
-          <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="http://lorempixel.com/g/200/300">
-            </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">Card Title </span>
-              <p><a href="#">This is a link</a></p>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p>Here is some more information about this product that is only revealed once clicked on.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col s12 m3">
-          <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="http://lorempixel.com/g/200/300">
-            </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">Card Title </span>
-              <p><a href="#">This is a link</a></p>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p>Here is some more information about this product that is only revealed once clicked on.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    
+         </div>
+     </div>
     </div>
-  </div>
 
 
   
 
-  <footer class="page-footer cyan">
-    <div class="container">
-      <div class="row">
-        <div class="col 12">
-          <h5 class="white-text">About Us</h5>
-          <p class="grey-text text-lighten-4">We are all about taking the bulletin board online and to bringing all the information on your laptop at once in an organised and attractive manner.</p>
-
-
-        </div>
-        
-       
-      </div>
-    </div>
-    <div class="footer-copyright">
+   <footer class="page-footer cyan">
       <div class="container">
-      Made by <a class="brown-text" href="index.html">Team 4 - Software Engineering</a>
+         <div class="row">
+            <div class="col 12">
+               <h5 class="white-text">About Us</h5>
+               <p class="grey-text text-lighten-4">We are all about taking the bulletin board online and to bringing all the information on your laptop at once in an organised and attractive manner.</p>
+            </div>
+         </div>
       </div>
-    </div>
-  </footer>
+      <div class="footer-copyright">
+         <div class="container">
+            Made by <a class="brown-text" href="index.html">Team 4 - Software Engineering</a>
+         </div>
+      </div>
+   </footer>
 
-<div id = "abhishek">
-</div>
-<script>
+   <div id = "abhishek">
+   </div>
 
-for(i=1;i<3;i++){
-
-var row=document.createElement("div");
-row.setAttribute("class","row");
-
-var column=document.createElement("div");
-column.setAttribute("class","col s12 m3");
+   <div id="id01"></div>
 
 
-var card=document.createElement("div");
-card.setAttribute("class","card");
-
-var card_image=document.createElement("div");
-card_image.setAttribute("class","card-image waves-effect waves-block waves-light");
-
-var image = document.createElement("IMG");
-image.setAttribute("src","https://pbs.twimg.com/profile_images/484529000379711488/DvibGHzz.jpeg");
-image.setAttribute("class","activator");
-
-card_image.appendChild(image);
+                        <script>
+                        var xmlhttp = new XMLHttpRequest();
+                        var url = "http://0.0.0.0:3000/api/viewers/recent_nlfeed"
 
 
-var card_content=document.createElement("div");
-card_content.setAttribute("class","card-content");
+                        xmlhttp.onreadystatechange = function() {
+                            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                                var myArr = JSON.parse(xmlhttp.responseText);
+                                myFunction(myArr);
+                            }
+                        };
+                        xmlhttp.open("GET", url, true);
+                        xmlhttp.send();
 
-var span=document.createElement("span");
-span.setAttribute("class","card-title activator grey-text text-darken-4");
-var title=document.createTextNode("Card Title");
-span.appendChild(title);
+                        function myFunction(arr) {
 
+                            var src = "";
+                            var clubname="";
+                            var postername="";
+                            var description="";
+                            var startDate="";
+                            var likes="";
+                            var endDate="";
+                            var posterid="";
+                            var like=[];
+                            var out ="";
+                            var i;
+                            for(i = 0; i < arr.res.length; i++) {
+                               posterid=arr.res[i].id;
+                               postername=arr.res[i].name;
+                               likes=arr.res[i].likes;
+                               like=arr.res[i];
+                               out+="\n"+i+"\n"+postername+"\n"+posterid+"\n"+likes;
+                               }
+                            // out = 'jevjrhvjre'
 
-var para=document.createElement("p");
-var link=document.createElement("a");
-link.setAttribute("href","#");
-var link_content=document.createTextNode("This is a link");
-
-link.appendChild(link_content);
-para.appendChild(link);
-
-card_content.appendChild(span);
-card_content.appendChild(para);
-
-
-var card_reveal=document.createElement("div");
-card_content.setAttribute("class","card-reveal");
-
-var span2=document.createElement("span");
-span2.setAttribute("class","card-title activator grey-text text-darken-4");
-var title2=document.createTextNode("Card Title");
-
-var icon = document.createElement("i");
-icon.setAttribute("class","material-icons right");
-var close=document.createTextNode("Close");
-
-icon.appendChild(close);
-span2.appendChild(title2);
-span2.appendChild(icon);
-
-var para2=document.createElement("p");
-var desc=document.createTextNode("Here is some more information about this product that is only revealed once clicked on.");
-para2.appendChild(desc);
-
-card_reveal.appendChild(span2);
-card_reveal.appendChild(para2);
+                            document.getElementById("id01").innerHTML = out;
+                        }
+                        //document.getElementById("id01").innerHTML = '';
+                        </script>
 
 
-card.appendChild(card_image);
-card.appendChild(card_content);
-card.appendChild(card_reveal);
-
-column.appendChild(card);
-row.appendChild(column);
-
-var show  = document.getElementById("abhishek");
-show.appendChild(row);
-
-}
-
-</script>
 
 
-  <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="js/materialize.js"></script>
-  <script src="js/init.js"></script>
-  <script>
+                        <script>
+
+                        var xmlhttp = new XMLHttpRequest();
+                        var url = "http://0.0.0.0:3000/api/viewers/recent_nlfeed"
+
+
+                        xmlhttp.onreadystatechange = function() {
+                          if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                            var myArr = JSON.parse(xmlhttp.responseText);
+                            myFunction(myArr);
+                          }
+                        };
+                        xmlhttp.open("GET", url, true);
+                        xmlhttp.send();
+
+                        function myFunction(arr) {
+
+                          var src = "";
+                          var uploaderName="";
+                          var postername="";
+                          var description="";
+                          var startDate="";
+                          var Total_likes="";
+                          var releaseDate="";
+                          var endDate="";
+                          var posterid="";
+                          var like=[];
+                          var tags="";
+
+                          var i;
+                          var rows=arr.res.length/4;
+                          var out ="";
+                          out = " THIS IS IT \n"+ arr.res[0].name + "  \n"+ arr.res[0].description + "This iis end ";
+                          document.getElementById("abhishek") = out;
+
+                          for(i = 0; i < rows; i++) {
+
+                            var row=document.createElement("div");
+                            row.setAttribute("class","row");
+
+                            for(j=0; j<4;j++){
+
+                              posterid=arr.res[(i*4)+j].id;
+                              postername=arr.res[(i*4)+j].name;
+                              //Total_likes=arr.res[(i*4)+j].likes;
+                              like=arr.res[(i*4)+j].like;
+                              description=arr.res[(i*4)+j].description;
+                              releaseDate=arr.res[(i*4)+j].releaseDate;
+                              startDate=arr.res[(i*4)+j].startDate;
+                              endDate=arr.res[(i*4)+j].endDate;
+                              tags=arr.res[(i*4)+j].tags;
+                              src=arr.res[(i*4)+j].poster;
+                              uploaderName=arr.res[(i*4)+j].uploaderid;
+
+
+                              var column=document.createElement("div");
+                              column.setAttribute("class","col s12 m3");
+
+
+                              var card=document.createElement("div");
+                              card.setAttribute("class","card");
+
+                              var card_image=document.createElement("div");
+                              card_image.setAttribute("class","card-image waves-effect waves-block waves-light");
+
+                              var image = document.createElement("IMG");
+                              image.setAttribute("src",src);
+                              image.setAttribute("class","activator");
+
+                              card_image.appendChild(image);
+
+
+                              var card_content=document.createElement("div");
+                              card_content.setAttribute("class","card-content");
+
+                              var span=document.createElement("span");
+                              span.setAttribute("class","card-title activator grey-text text-darken-4");
+                              var title=document.createTextNode(postername);
+                              span.appendChild(title);
+
+
+                              var para=document.createElement("p");
+                              var link=document.createElement("a");
+                              link.setAttribute("href","#");
+                              var link_content=document.createTextNode("This is a link");
+
+                              link.appendChild(link_content);
+                              para.appendChild(link);
+
+                              card_content.appendChild(span);
+                              card_content.appendChild(para);
+
+
+                              var card_reveal=document.createElement("div");
+                              card_content.setAttribute("class","card-reveal");
+
+                              var span2=document.createElement("span");
+                              span2.setAttribute("class","card-title activator grey-text text-darken-4");
+                              var title2=document.createTextNode(postername);
+
+                              var icon = document.createElement("i");
+                              icon.setAttribute("class","material-icons right");
+                              var close=document.createTextNode("close");
+
+                              icon.appendChild(close);
+                              span2.appendChild(title2);
+                              span2.appendChild(icon);
+
+                              var para2=document.createElement("p");
+                              var desc=document.createTextNode(description);
+                              para2.appendChild(desc);
+
+                              card_reveal.appendChild(span2);
+                              card_reveal.appendChild(para2);
+
+
+                              card.appendChild(card_image);
+                              card.appendChild(card_content);
+                              card.appendChild(card_reveal);
+
+                              column.appendChild(card); 
+                              row.appendChild(column);
+                           }
+                          
+                            var show  = document.getElementById("abhishek");
+                            show.appendChild(row);
+                            show.innerHTML=rows;
+
+                          }
+
+                        }
+                        </script>
+
+                        <script>
+
+                        var xmlhttp = new XMLHttpRequest();
+                        var url = "http://0.0.0.0:3000/api/viewers/recent_nlfeed"
+
+
+                        xmlhttp.onreadystatechange = function() {
+                            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                                var myArr = JSON.parse(xmlhttp.responseText);
+                                myFunction(myArr);
+                            }
+                        };
+                        xmlhttp.open("GET", url, true);
+                        xmlhttp.send();
+
+                        function myFunction(arr) {
+
+                          var src = "";
+                          var uploaderName="";
+                          var postername="";
+                          var description="";
+                          var startDate="";
+                          var likes="";
+                          var releaseDate="";
+                          var endDate="";
+                          var posterid="";
+                          var like=[];
+                          var tags="";
+
+                            var out ="";
+                            var i;
+                            for(r = 0; r < arr.res.length/4; r++) {
+                              
+                              /*posterid=arr.res[i].id;
+                               postername=arr.res[i].name;
+                               likes=arr.res[i].likes;
+                               like=arr.res[i];*/
+
+                              var row=document.createElement("div");
+                        row.setAttribute("class","row");
+                        for(j=0;j<4;j++){
+
+                              i=(r*4)+j;
+                              posterid=arr.res[i].id;
+                              postername=arr.res[i].name;
+                              likes=arr.res[i].likes;
+                              like=arr.res[i].like;
+                              description=arr.res[i].description;
+                              releaseDate=arr.res[i].releaseDate;
+                              startDate=arr.res[i].startDate;
+                              endDate=arr.res[i].endDate;
+                              tags=arr.res[i].tags;
+                              src=arr.res[i].poster;
+                              uploaderName=arr.res[i].uploaderid;
+
+                              out+="\n"+i+"\n"+postername+"\n"+posterid+"\n"+likes;
+                               
+
+                        var column=document.createElement("div");
+                        column.setAttribute("class","col s12 m3");
+
+
+                        var card=document.createElement("div");
+                        card.setAttribute("class","card");
+
+                        var card_image=document.createElement("div");
+                        card_image.setAttribute("class","card-image waves-effect waves-block waves-light");
+
+                        var image = document.createElement("IMG");
+                        image.setAttribute("src",src);
+                        image.setAttribute("class","activator");
+
+                        card_image.appendChild(image);
+
+
+                        var card_content=document.createElement("div");
+                        card_content.setAttribute("class","card-content");
+
+                        var span=document.createElement("span");
+                        span.setAttribute("class","card-title activator grey-text text-darken-4");
+                        var title=document.createTextNode(postername);
+                        span.appendChild(title);
+
+
+                        var para=document.createElement("p");
+                        var link=document.createElement("a");
+                        link.setAttribute("href","#");
+                        var link_content=document.createTextNode("This is a link");
+
+                        link.appendChild(link_content);
+                        para.appendChild(link);
+
+                        card_content.appendChild(span);
+                        card_content.appendChild(para);
+
+
+                        var card_reveal=document.createElement("div");
+                        card_content.setAttribute("class","card-reveal");
+
+                        var span2=document.createElement("span");
+                        span2.setAttribute("class","card-title activator grey-text text-darken-4");
+                        var title2=document.createTextNode(postername);
+
+                        var icon = document.createElement("i");
+                        icon.setAttribute("class","material-icons right");
+                        var close=document.createTextNode("Close");
+
+                        icon.appendChild(close);
+                        span2.appendChild(title2);
+                        span2.appendChild(icon);
+
+                        var para2=document.createElement("p");
+                        var desc=document.createTextNode(description);
+                        para2.appendChild(desc);
+
+                        card_reveal.appendChild(span2);
+                        card_reveal.appendChild(para2);
+
+
+                        card.appendChild(card_image);
+                        card.appendChild(card_content);
+                        card.appendChild(card_reveal);
+
+                        column.appendChild(card);
+                        row.appendChild(column);
+
+                        document.getElementById("abhishek").appendChild(row);
+                        }
+                        }
+
+
+
+                        }
+
+
+
+
+                        </script>
+
+
+   <!--  Scripts-->
+   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+   <script src="js/materialize.js"></script>
+   <script src="js/init.js"></script>
+   <script>
       $(document).ready(function(){
-        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+         // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
         $('.modal-trigger').leanModal();
       });
-  </script>
-  <script>
+   </script>
+   <script>
       $result.("http://0.0.0.0:3000/api/viewers/recent_nlfeed")
-  </script>
+   </script>
   
- 
-
-  
-
-  </body>
+</body>
 </html>
