@@ -13,6 +13,9 @@
       "type": "string",
       "required": true
     },
+    "password":{
+      "type":"string"
+    },
     "email": {
       "type": "string"
     },

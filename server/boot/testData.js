@@ -23,9 +23,9 @@ var Uploaders;
      // if (err) throw er);
   async function createViewers() {
      var ans = await app.models.Viewer.create([
-        {name:'_sinbad8',id:'201301000',email: 'pareshp1997@gmail.com',subscriptions:['proClub','Debate']},
-        {name:'paresh',id:'201301077',email: 'pareshp1997@gmail.com',subscriptions:['proClub']},
-        {name:'rishabh',id:'201301001',email: 'pareshp1997@gmail.com',subscriptions:['Debate']}
+        {name:'_sinbad8',id:'201301000',password:'1234',email: 'pareshp1997@gmail.com',subscriptions:['proClub','Debate']},
+        {name:'paresh',id:'201301077',password:'1234',email: 'pareshp1997@gmail.com',subscriptions:['proClub']},
+        {name:'rishabh',id:'201301001',password:'1234',email: 'pareshp1997@gmail.com',subscriptions:['Debate']}
       ]);
    // console.log('viewers');
     //await app.models.Viewer.updateAll({id:ans[1].id},{"$pushAll":{subscriptions:'Debate'}})
@@ -37,12 +37,14 @@ var Uploaders;
      console.log("started");
       var ans =await  app.models.Uploader.create([
         {  id: "proClub",
+           password:'1234',
            noOfPosts: 2,
            noOfSubscriber: 2,
            pPic : "string",
            cPic: "string",
            subscriberList:['201301077','201301000']},
        {   id: "Debate",
+           password:'1234',
            noOfPosts: 2,
            noOfSubscriber: 2,
            pPic: "string",

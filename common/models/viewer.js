@@ -1,5 +1,20 @@
 var app =require('../../server/server.js');
 module.exports = function(Viewer) {
+	Viewer.login=async function(id,password){
+		var user=[];
+		user=await Viewer.findOne({where:{and:[{id:id},{password:password}]}})
+		console.log(user);
+		if(user==null){
+			user=await Viewer.app.models.uploader.findOne({where:{and:[{id:id},{password:password}]}})
+			if(user==null)
+				return "wrong"
+			else
+				return "uploader"
+		}
+		else{
+			return "viewer"
+		}
+	}
 	Viewer.recent_feed=async function(id){
 		//console.log(id);
 		var v=await Viewer.find({where:{id:id}});
@@ -100,6 +115,14 @@ module.exports = function(Viewer) {
 		                                 ],
 		                        returns:{arg:'res',type:'string'},
                                  http: {path: '/unsubscribe', verb: 'get'}
+		                         })
+	Viewer.remoteMethod('login',{
+		                         accepts:[
+		                         	      {arg:'id',type:'string',required:true},
+		                                  {arg:'password',type:'string',required:true}
+		                                 ],
+		                        returns:{arg:'res',type:'string'},
+                                 http: {path: '/login', verb: 'get'}
 		                         })
 	Viewer.remoteMethod('changeEmail',{
 		                         accepts:[

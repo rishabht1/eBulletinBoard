@@ -27,7 +27,7 @@ async function sendMail(){
 				}
 			}
 		}
-		setTimeout(sendMail,10000)
+		//setTimeout(sendMail,10000)
 	/*var p=0;
 	while(p!=5){
 	await app.models.Email.send({
