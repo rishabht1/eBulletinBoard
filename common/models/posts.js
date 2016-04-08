@@ -13,11 +13,27 @@ module.exports = function(Posts) {
     var res='This post has been deleted successfully'
     return res;
   }
-  Posts.search=async function(keyWords){
-    var res;
-    for (var i in keyWords){
-       res=Posts.find({where:{tags:{like:keyWords[i]}}});
+  Posts.search=async function(k){
+    var res=[];
+    k=k.toLowerCase();
+    var keyWords=k.split(" ")
+    for(var i=0;i<keyWords.length;i++){
+      console.log(keyWords[i])
+     res[i]=await Posts.find({where:{tags:{like:keyWords[i]}}});
     }
+    var set=new Set();
+    for(let i=0;i<res.length;i++){
+      for(let j=0;j<res[i].length;j++)
+        await set.add(res[i][j].name);
+    }
+    //console.log(set)
+    res=[]
+    var k=0
+    for(var i of set){
+      res[k]=await Posts.findOne({where:{name:i}})
+      k++
+    }
+    return res
   }
   Posts.edit=async function(id,msg){
        Posts.destroyAll({where:{id:id}});
@@ -50,19 +66,18 @@ module.exports = function(Posts) {
                                  http: {path: '/deletePost', verb: 'get'}
                              })
   Posts.remoteMethod('search',{
-                             accepts:[
-                                    {arg:'keyWords',type:'array',required:true}
-                                     ],
+                             accepts:
+                                    {arg:'keyWords',type:'string',required:true},
                             returns:{arg:'res',type:'array'},
                                  http: {path: '/search', verb: 'get'}
                              })
-  /*Posts.remoteMethod('edit',{
+  Posts.remoteMethod('edit',{
                              accepts:[
                                     {arg:'id',type:'string',required:true},
                                       {arg:'uid',type:'string',required:true}
                                      ],
                             returns:{arg:'res',type:'string'},
                                  http: {path: '/unsubscribe', verb: 'get'}
-                             })*/
+                             })
 };
 //post update.

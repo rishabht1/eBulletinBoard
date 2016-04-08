@@ -2,6 +2,7 @@ module.exports = function(Uploader) {
     Uploader.upload=async function(id,name,poster,desc,rd,sd,ed,type,tags){
         var check=Uploader.find({where:{id:id}})
         var res;
+        tags=tags.toLowerCase()
         try{
       	await Uploader.app.models.posts.create( {
   			"name": name,
