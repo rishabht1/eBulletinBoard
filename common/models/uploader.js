@@ -97,6 +97,8 @@ module.exports = function(Uploader) {
                                       {arg:'desc',type:'string',required:true},
                                       {arg:'rd',type:'Date',required:true},
                                       {arg:'sd',type:'Date',required:true},
+                                      {arg:'st',type:'string',required:true},
+                                      {arg:'et',type:'string',required:true},
                                       {arg:'ed',type:'Date',required:true},
                                       {arg:'type',type:'boolean',required:true},
                                       {arg:'tags',type:'string',required:true}],
