@@ -28,6 +28,12 @@
     "endDate": {
       "type": "date"
     },
+    "startTime": {
+      "type": "string"
+    },
+    "endTime": {
+      "type": "string"
+    },
     "likes": {
       "type": "number",
       "required": true

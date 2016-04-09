@@ -1,11 +1,11 @@
 module.exports = function(Uploader) {
-    Uploader.upload=async function(id,name,poster,desc,rd,sd,ed,type,tags){
+    Uploader.upload=async function(id,name,poster,desc,rd,sd,ed,st,et,type,tags){
         var check=await Uploader.findOne({where:{id:id}})
         // console.log(check)
         var res;
         tags=tags.toLowerCase()
         if(check==null){
-          res=notsuccess;
+          res="notsuccess";
           return res;
         }
         try{
@@ -16,6 +16,8 @@ module.exports = function(Uploader) {
 			  "realeaseDate": rd,
 			  "startDate": sd,
 			  "endDate": ed,
+        "startTime": st,
+        "endTime": et,
 			  "likes": 0,
         "tags":tags,
         "like":[],
