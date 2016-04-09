@@ -1,20 +1,31 @@
 module.exports = function(Posts) {
   Posts.like=async function(id,vid){
-    var l=await Posts.findById(id);
+    try{
+       var l=await Posts.findById(id);
     console.log(l);
     var l1=l.likes;
-  	await Posts.update({id:id},{likes:l1+1});
+    await Posts.update({id:id},{likes:l1+1});
     var peopleliked=l.like;
     peopleliked.push(vid);
     await Posts.update({id:id},{like:peopleliked});
+    }
+    catch(e){
+      return 'error';
+    }
   }
   Posts.deletePost=async function(id){
-  	await Posts.destroyAll({id:id});
+  	try{
+      await Posts.destroyAll({id:id});
     var res='This post has been deleted successfully'
     return res;
+    }
+    catch(e){
+      return 'error';
+    }
   }
   Posts.search=async function(k){
-    var res=[];
+    try{
+      var res=[];
     k=k.toLowerCase();
     var keyWords=k.split(" ")
     for(var i=0;i<keyWords.length;i++){
@@ -34,8 +45,13 @@ module.exports = function(Posts) {
       k++
     }
     return res
+    }
+    catch(e){
+      return 'error';
+    }
   }
   Posts.edit=async function(id,msg){
+    try{
        Posts.destroyAll({where:{id:id}});
        Posts.create({
         "name": "string",
@@ -50,6 +66,10 @@ module.exports = function(Posts) {
         "id": "string",
         "uploaderId": "id"
         });
+    }
+    catch(e){
+      return 'error';
+    }
   }
   Posts.remoteMethod('like',{
                              accepts:[
