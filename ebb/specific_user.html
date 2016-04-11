@@ -12,7 +12,7 @@
 </head>
 
 
-<body bgcolor="#fffff0">
+<body bgcolor="#fffff0"  ng-app = "abhishek_abcd">
 
   <div id="testing">rishabh</div>
     <script LANGUAGE="JavaScript">
@@ -77,7 +77,7 @@
                     </ul>
                     <div class="header-search-wrapper hide-on-med-and-down">
                         <i class="mdi-action-search"></i>
-                        <input type="text" name="Search" class="header-search-input z-depth-2"/>
+                        <input ng-model="searchText" type="text" name="Search" class="header-search-input z-depth-2"/>
                     </div>
                     <ul class="right hide-on-med-and-down">                        
                         <li><a href="javascript:void(0);" class='dropdown-button btn-floating mdi-navigation-menu' href='#' data-activates='dropdown1' ></a>
@@ -111,7 +111,7 @@
                         </li>
 
                         <li>
-                            <a href="login.html">Login</a>
+                            <a class = "modal-trigger" href="#modal1">Login</a>
                         </li>
                     </ul>
                 </div>
@@ -130,7 +130,7 @@
             <a class="waves-effect cyan waves-light btn modal-trigger" href="#modal1">Upload An Event</a>
 
             <!-- Modal Structure -->
-            <div ng-app = "form">
+            <div>
                 <div id="modal1" class="modal">
                     <div class="modal-content">
                         <h5><u>Uplaod an event</u></h5>
@@ -209,7 +209,7 @@
     </div>
 
     <hr>
-        <div class="container">
+        <div class="container" ng-controller = "debate">
             <div class="row">
                 <div class="col s12 m4">
                     <div class="icon-block">
@@ -220,7 +220,7 @@
                 <div class="col s12 m4">
                     <div class="icon-block">
                         <h5 class="center"><b>Posts</b></h5>
-                        <p class="light center">51</p>
+                        <p class="light center">{{dfeed.length}}</p>
                     </div>
                 </div>
                 <div class="col s12 m4">
@@ -235,9 +235,30 @@
 
     <h5 class = "center">Previous Posts</h5>
 
-    <div class="container" >
+    <div class="container">
         <div class="section">
-            <div class="row">
+
+            
+            <div class="row" ng-controller="debate"> 
+                <div class="col s12 m3" ng-repeat="x in dfeed | filter:searchText">
+                   <div class="card">
+                      <div class="card-image waves-effect waves-block waves-light">
+                         <img class="activator" src="http://lorempixel.com/200/300">
+                      </div>
+                      <div class="card-content">
+                         <span class="card-title activator grey-text text-darken-4">{{x.tags}}Card Title </span>
+                            <p><a href="#">{{x.name}}</a></p>
+                      </div>
+                      <div class="card-reveal">
+                         <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                         <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                      </div>
+                   </div>
+                </div>
+             </div>
+
+
+            <!-- <div class="row">
                 <div class="col s12 m3">
                     <div class="card">
                         <div class="card-image waves-effect waves-block waves-light">
@@ -358,7 +379,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -383,6 +404,9 @@
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="js/materialize.js"></script>
     <script src="js/init.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-cookies.js"></script>
+  <script type="text/javascript" src="abc.js"></script>
     <script>
         $(document).ready(function(){
             // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered

@@ -38,21 +38,31 @@ var Books = [{
 }];
 var nl_like_url = "";
 var nl_recent_url = "http://0.0.0.0:3000/api/viewers/recent_nlfeed";
-var l_like_url = "";
+var l_like_url = "http://0.0.0.0:3000/api/viewers/like_feed?id=";
 var l_recent_url = "";
+var debate_url = "http://0.0.0.0:3000/api/uploaders/Debate/posts";
+
 var recent_feed;
+var debate_feed;
 //var nl_like_feed = getPosts(nl_like_url);
 
  // alert(nl_recent_feed[0].name);
 //var l_like_feed = getPosts(l_like_url);
 //var l_recent_feed = getPosts(l_recent_url);
 
-
+/***********************************NOT LOGIN RECENT FEED***********************************/
 getPosts(nl_recent_url,function(arr) {
      recent_feed = arr.res;
      //console.log(recent_feed);
      //console.log(Books);
    });
+
+/***********************************DEBATE FEED***********************************/
+getPosts(debate_url,function(arr){
+  debate_feed=arr;
+  console.log("Hi i'm debate feed");
+  console.log(debate_feed);
+});
 
 //var timeout_time=1000;
 
@@ -81,24 +91,20 @@ function getPosts(url,cb){
   // return ;
 }
 
-var app = angular.module("abhishek_abcd", []);
-app.controller("abhishekctrl", function($scope){
+var app = angular.module("abhishek_abcd", ['ngCookies']);
+app.controller("abhishekctrl",function($scope){
 	$scope.names=Names;
 	$scope.books=Books;
 	//$scope.nl_like_feed=nl_like_feed;
 	$scope.nl_recent_feed=recent_feed;
 	//$scope.l_like_feed=l_like_feed;
 	//$scope.l_recent_feed=l_recent_feed;
+  
+ 
   getPosts(nl_recent_url,function(arr){
     $scope.nl_recent_feed=arr.res;
     console.log($scope.nl_recent_feed);
   })
-  setTimeout(function(){
-    $scope.$apply(function(){
-    //alert("apply called");
-    });
-  },100);
-  console.log($scope.nl_recent_feed);	
 
   $scope.getNumber = function(numb){
     if (numb == null){
@@ -109,11 +115,30 @@ app.controller("abhishekctrl", function($scope){
     if (rem > 0) {
       n = n ;
     }
-    console.log(numb);
-    console.log(rem);
-    console.log(n);
+    console.log("The length is "+numb);
+    //console.log(rem);
+    console.log("The quotient is "+n);
     return new Array(n);
   }
+
+  $scope.getRem = function(num){
+    if(num == null){
+      return 0;
+    }
+    var r = num % 4;
+    console.log("kuch aur "+num+" The remainder is "+r);
+    return r;
+  }
+
+  setTimeout(function(){
+    $scope.$apply(function(){
+    //alert("apply called");
+    });
+  },100);
+  console.log($scope.nl_recent_feed);	
+
+  
+
 
 });
 
@@ -123,4 +148,55 @@ app.directive("w3TestDirective", function() {
     return {
         template : "<h1>Made by a directive!</h1>"
     };
+});
+
+
+app.controller("loginctrl",['$cookies',function($scope,$cookies){
+  $scope.userName='';
+  $scope.pass='';
+  $scope.show = function(){
+    alert("The credentials are :" + $scope.userName+" "+$scope.pass);
+    var xmlhttp = new XMLHttpRequest();
+    var url = "http://0.0.0.0:3000/api/viewers/login?id="+$scope.userName+"&password="+$scope.pass;
+    var result;
+
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+              var myArr=JSON.parse(xmlhttp.responseText);
+              if(myArr.res=="wrong"){
+                alert("Wrong credentials");
+              }else{
+                $cookies.user=$scope.userName;
+                alert("congrats u have successfully logged in"+$cookies.user);
+              }
+        }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+  };
+
+
+
+}]);
+
+app.controller("debate",function($scope){
+  
+  getPosts(debate_url,function(arr){
+  $scope.dfeed=arr;
+  
+});
+
+  $scope.checkChutiyapa = function(num){
+    console.log(num.length);
+    return num;
+  };
+  
+  setTimeout(function(){
+    $scope.$apply(function(){
+    //alert("apply called");
+    });
+  },1000);
+
+  console.log($scope.dfeed);
+
 });
