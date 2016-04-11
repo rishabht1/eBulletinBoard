@@ -7760,7 +7760,7 @@ small {
 
 .card .card-title {
   font-size: 24px;
-  font-weight: 300;
+  font-weight: 150;
 }
 
 .card .card-title.activator {
@@ -7822,11 +7822,11 @@ small {
   position: absolute;
   bottom: 0;
   left: 0;
-  padding: 20px;
+  padding: 0px;
 }
 
 .card .card-content {
-  padding: 20px;
+  padding: 40px;
   border-radius: 0 0 2px 2px;
 }
 
@@ -7836,7 +7836,7 @@ small {
 }
 
 .card .card-content .card-title {
-  line-height: 48px;
+  line-height: 20px;
 }
 
 .card .card-action {

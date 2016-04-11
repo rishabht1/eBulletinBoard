@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+​
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script type="text/javascript" src="abc.js"></script>
+</head>
+​
+<body>
+​
+​
+<div ng-app="abhishek_abcd" ng-controller="abhishekctrl" class="container">
+​
+  <p>Looping with ng-repeat:</p>
+  <ul>
+    <li ng-repeat="x in names">
+      {{ x }}
+    </li>
+  </ul>
+	<div class="section">
+		<div class="row" ng-repeat="x in books" ng-if = "$index % 4 == 0">
+			<div class="col s12 m3" ng-repeat="i in [$index, $index+1, $index+2, $index+3]" ng-if = "books[i] != null">
+			  <div class="card">
+			    <div class="card-image waves-effect waves-block waves-light">
+			      <img class="activator" src="http://lorempixel.com/200/300">
+			    </div>
+			    <div class="card-content">
+			      <span class="card-title activator grey-text text-darken-4">{{books[i].name}}Card Title </span>
+			      <p><a href="#">This is a link</a></p>
+			    </div>
+			    <div class="card-reveal">
+			      <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+			      <p>Here is some more information about this product that is only revealed once clicked on.</p>
+			    </div>
+			  </div>
+			</div>
+		</div>
+	</div>
+​
+	<w3-Test-Directive></w3-Test-Directive>
+​
+​
+	
+</div>
+​
+</body>
+</html>

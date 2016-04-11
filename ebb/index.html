@@ -11,7 +11,7 @@
    <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 
-<body bgcolor="#fffff0">
+<body bgcolor="#fffff0" ng-app = "abhishek_abcd" ng-controller = "abhishekctrl">
   
    <header id="header" class="page-topbar">
       <!-- start header nav-->
@@ -23,7 +23,7 @@
                </ul>
                <div class="header-search-wrapper hide-on-med-and-down">
                   <i class="mdi-action-search"></i>
-                  <input type="text" name="Search" class="header-search-input z-depth-2"/>
+                  <input ng-model = "searchText" type="text" name="Search" class="header-search-input z-depth-2"/>
                </div>
                <ul class="right hide-on-med-and-down">                        
                   <li><a href="javascript:void(0);" class='dropdown-button btn-floating mdi-navigation-menu' href='#' data-activates='dropdown1' ></a>
@@ -108,70 +108,19 @@
  
    <div id="id01"></div>
 
-                           <script>
-                           var xmlhttp = new XMLHttpRequest();
-                           var url = "http://0.0.0.0:3000/api/viewers/recent_nlfeed"
-
-
-                           xmlhttp.onreadystatechange = function() {
-                               if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                                   var myArr = JSON.parse(xmlhttp.responseText);
-                                   myFunction(myArr);
-                               }
-                           };
-                           xmlhttp.open("GET", url, true);
-                           xmlhttp.send();
-
-                           function myFunction(arr) {
-
-                               var src = "";
-                               var clubname="";
-                               var postername="";
-                               var description="";
-                               var startDate="";
-                               var likes="";
-                               var endDate="";
-                               var posterid="";
-                               var like=[];
-
-                               var i;
-                               for(i = 0; i < arr.res.length; i++) {
-                                  posterid=arr.res[i].id;
-                                  postername=arr.res[i].name;
-                                  likes=arr.res[i].likes;
-                                  like=arr.res[i]
-                                  $("div").html("<div class="card">
-                                       <div class="card-image waves-effect waves-block waves-light">
-                                         <img class="activator" src="http://lorempixel.com/g/200/300">
-                                       </div>
-                                       <div class="card-content">
-                                         <span class="card-title activator grey-text text-darken-4">Card Title </span>
-                                         <p><a href="#">This is a link</a></p>
-                                       </div>
-                                       <div class="card-reveal">
-                                         <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-                                         <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                                       </div>
-                                     </div>");
-                                  }
-                               // out = 'jevjrhvjre'
-
-                               document.getElementById("id01").innerHTML = out;
-                           }
-                           //document.getElementById("id01").innerHTML = '';
-                           </script>
+                           
 
    <div class="container" >
-     `<div class="section">
-         <div class="row">
-            <div class="col s12 m3">
+      <div class="section" >
+         <!--<div class="row" ng-repeat="x in nl_recent_feed | filter:searchText" ng-if = "$index % 4 == 0">
+            <div class="col s12 m3" ng-repeat="i in [$index, $index+1, $index+2, $index+3]" ng-if = "nl_recent_feed[i] != null">
                <div class="card">
                   <div class="card-image waves-effect waves-block waves-light">
-                     <img class="activator" src="http://lorempixel.com/g/200/300">
+                     <img class="activator" src="http://lorempixel.com/200/300">
                   </div>
                   <div class="card-content">
-                     <span class="card-title activator grey-text text-darken-4">Card Title </span>
-                     <p><a href="#">This is a link</a></p>
+                     <span class="card-title activator grey-text text-darken-4">{{nl_recent_feed[i].tags}}Card Title </span>
+                        <p><a href="#">{{nl_recent_feed[i].name}}</a></p>
                   </div>
                   <div class="card-reveal">
                      <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
@@ -179,104 +128,20 @@
                   </div>
                </div>
             </div>
-            <div class="col s12 m3">
+         </div>-->
+
+
+
+
+         <div class="row" ng-repeat = "y in getNumber(nl_recent_feed.length)" ng-if  = "nl_recent_feed != null">
+            <div class="col s12 m3 " ng-repeat="x in nl_recent_feed.slice(x, x+4)| filter:searchText" ng-if = "x != null">
                <div class="card">
                   <div class="card-image waves-effect waves-block waves-light">
-                     <img class="activator" src="http://lorempixel.com/g/200/300">
+                     <img class="activator" src="http://lorempixel.com/200/300">
                   </div>
                   <div class="card-content">
-                     <span class="card-title activator grey-text text-darken-4">Card Title </span>
-                     <p><a href="#">This is a link</a></p>
-                  </div>
-                  <div class="card-reveal">
-                     <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-                     <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                  </div>
-               </div>
-            </div>
-            <div class="col s12 m3">
-               <div class="card">
-                  <div class="card-image waves-effect waves-block waves-light">
-                     <img class="activator" src="http://lorempixel.com/g/200/300">
-                  </div>
-                  <div class="card-content">
-                     <span class="card-title activator grey-text text-darken-4">Card Title </span>
-                     <p><a href="#">This is a link</a></p>
-                  </div>
-                  <div class="card-reveal">
-                     <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-                     <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                  </div>
-               </div>
-            </div>
-            <div class="col s12 m3">
-               <div class="card">
-                  <div class="card-image waves-effect waves-block waves-light">
-                     <img class="activator" src="http://lorempixel.com/g/200/300">
-                  </div>
-                  <div class="card-content">
-                     <span class="card-title activator grey-text text-darken-4">Card Title </span>
-                     <p><a href="#">This is a link</a></p>
-                  </div>
-                  <div class="card-reveal">
-                     <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-                     <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                  </div>
-               </div>
-            </div>
-            <div class="col s12 m3">
-               <div class="card">
-                  <div class="card-image waves-effect waves-block waves-light">
-                     <img class="activator" src="http://lorempixel.com/g/200/300">
-                  </div>
-                  <div class="card-content">
-                     <span class="card-title activator grey-text text-darken-4">Card Title </span>
-                     <p><a href="#">This is a link</a></p>
-                  </div>
-                  <div class="card-reveal">
-                     <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-                     <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                  </div>
-               </div>
-            </div>
-            <div class="col s12 m3">
-               <div class="card">
-                  <div class="card-image waves-effect waves-block waves-light">
-                     <img class="activator" src="http://lorempixel.com/g/200/300">
-                  </div>
-                  <div class="card-content">
-                     <span class="card-title activator grey-text text-darken-4">Card Title </span>
-                     <p><a href="#">This is a link</a></p>
-                  </div>
-                  <div class="card-reveal">
-                     <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-                     <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                  </div>
-               </div>
-            </div>
-            <div class="col s12 m3">
-               <div class="card">
-                  <div class="card-image waves-effect waves-block waves-light">
-                     <img class="activator" src="http://lorempixel.com/g/200/300">
-                  </div>
-                  <div class="card-content">
-                     <span class="card-title activator grey-text text-darken-4">Card Title </span>
-                     <p><a href="#">This is a link</a></p>
-                  </div>
-                  <div class="card-reveal">
-                     <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-                     <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                  </div>
-               </div>
-            </div>
-            <div class="col s12 m3">
-               <div class="card">
-                  <div class="card-image waves-effect waves-block waves-light">
-                     <img class="activator" src="http://lorempixel.com/g/200/300">
-                  </div>
-                  <div class="card-content">
-                     <span class="card-title activator grey-text text-darken-4">Card Title </span>
-                     <p><a href="#">This is a link</a></p>
+                     <span class="card-title activator grey-text text-darken-4">{{x.tags}}Card Title </span>
+                        <p><a href="#">{{x.name}}</a></p>
                   </div>
                   <div class="card-reveal">
                      <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
@@ -285,8 +150,8 @@
                </div>
             </div>
          </div>
-     </div>
-    </div>
+      </div>
+   </div>
 
 
   
@@ -307,342 +172,17 @@
       </div>
    </footer>
 
-   <div id = "abhishek">
-   </div>
-
-   <div id="id01"></div>
-
-
-                        <script>
-                        var xmlhttp = new XMLHttpRequest();
-                        var url = "http://0.0.0.0:3000/api/viewers/recent_nlfeed"
-
-
-                        xmlhttp.onreadystatechange = function() {
-                            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                                var myArr = JSON.parse(xmlhttp.responseText);
-                                myFunction(myArr);
-                            }
-                        };
-                        xmlhttp.open("GET", url, true);
-                        xmlhttp.send();
-
-                        function myFunction(arr) {
-
-                            var src = "";
-                            var clubname="";
-                            var postername="";
-                            var description="";
-                            var startDate="";
-                            var likes="";
-                            var endDate="";
-                            var posterid="";
-                            var like=[];
-                            var out ="";
-                            var i;
-                            for(i = 0; i < arr.res.length; i++) {
-                               posterid=arr.res[i].id;
-                               postername=arr.res[i].name;
-                               likes=arr.res[i].likes;
-                               like=arr.res[i];
-                               out+="\n"+i+"\n"+postername+"\n"+posterid+"\n"+likes;
-                               }
-                            // out = 'jevjrhvjre'
-
-                            document.getElementById("id01").innerHTML = out;
-                        }
-                        //document.getElementById("id01").innerHTML = '';
-                        </script>
-
-
-
-
-                        <script>
-
-                        var xmlhttp = new XMLHttpRequest();
-                        var url = "http://0.0.0.0:3000/api/viewers/recent_nlfeed"
-
-
-                        xmlhttp.onreadystatechange = function() {
-                          if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                            var myArr = JSON.parse(xmlhttp.responseText);
-                            myFunction(myArr);
-                          }
-                        };
-                        xmlhttp.open("GET", url, true);
-                        xmlhttp.send();
-
-                        function myFunction(arr) {
-
-                          var src = "";
-                          var uploaderName="";
-                          var postername="";
-                          var description="";
-                          var startDate="";
-                          var Total_likes="";
-                          var releaseDate="";
-                          var endDate="";
-                          var posterid="";
-                          var like=[];
-                          var tags="";
-
-                          var i;
-                          var rows=arr.res.length/4;
-                          var out ="";
-                          out = " THIS IS IT \n"+ arr.res[0].name + "  \n"+ arr.res[0].description + "This iis end ";
-                          document.getElementById("abhishek") = out;
-
-                          for(i = 0; i < rows; i++) {
-
-                            var row=document.createElement("div");
-                            row.setAttribute("class","row");
-
-                            for(j=0; j<4;j++){
-
-                              posterid=arr.res[(i*4)+j].id;
-                              postername=arr.res[(i*4)+j].name;
-                              //Total_likes=arr.res[(i*4)+j].likes;
-                              like=arr.res[(i*4)+j].like;
-                              description=arr.res[(i*4)+j].description;
-                              releaseDate=arr.res[(i*4)+j].releaseDate;
-                              startDate=arr.res[(i*4)+j].startDate;
-                              endDate=arr.res[(i*4)+j].endDate;
-                              tags=arr.res[(i*4)+j].tags;
-                              src=arr.res[(i*4)+j].poster;
-                              uploaderName=arr.res[(i*4)+j].uploaderid;
-
-
-                              var column=document.createElement("div");
-                              column.setAttribute("class","col s12 m3");
-
-
-                              var card=document.createElement("div");
-                              card.setAttribute("class","card");
-
-                              var card_image=document.createElement("div");
-                              card_image.setAttribute("class","card-image waves-effect waves-block waves-light");
-
-                              var image = document.createElement("IMG");
-                              image.setAttribute("src",src);
-                              image.setAttribute("class","activator");
-
-                              card_image.appendChild(image);
-
-
-                              var card_content=document.createElement("div");
-                              card_content.setAttribute("class","card-content");
-
-                              var span=document.createElement("span");
-                              span.setAttribute("class","card-title activator grey-text text-darken-4");
-                              var title=document.createTextNode(postername);
-                              span.appendChild(title);
-
-
-                              var para=document.createElement("p");
-                              var link=document.createElement("a");
-                              link.setAttribute("href","#");
-                              var link_content=document.createTextNode("This is a link");
-
-                              link.appendChild(link_content);
-                              para.appendChild(link);
-
-                              card_content.appendChild(span);
-                              card_content.appendChild(para);
-
-
-                              var card_reveal=document.createElement("div");
-                              card_content.setAttribute("class","card-reveal");
-
-                              var span2=document.createElement("span");
-                              span2.setAttribute("class","card-title activator grey-text text-darken-4");
-                              var title2=document.createTextNode(postername);
-
-                              var icon = document.createElement("i");
-                              icon.setAttribute("class","material-icons right");
-                              var close=document.createTextNode("close");
-
-                              icon.appendChild(close);
-                              span2.appendChild(title2);
-                              span2.appendChild(icon);
-
-                              var para2=document.createElement("p");
-                              var desc=document.createTextNode(description);
-                              para2.appendChild(desc);
-
-                              card_reveal.appendChild(span2);
-                              card_reveal.appendChild(para2);
-
-
-                              card.appendChild(card_image);
-                              card.appendChild(card_content);
-                              card.appendChild(card_reveal);
-
-                              column.appendChild(card); 
-                              row.appendChild(column);
-                           }
-                          
-                            var show  = document.getElementById("abhishek");
-                            show.appendChild(row);
-                            show.innerHTML=rows;
-
-                          }
-
-                        }
-                        </script>
-
-                        <script>
-
-                        var xmlhttp = new XMLHttpRequest();
-                        var url = "http://0.0.0.0:3000/api/viewers/recent_nlfeed"
-
-
-                        xmlhttp.onreadystatechange = function() {
-                            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                                var myArr = JSON.parse(xmlhttp.responseText);
-                                myFunction(myArr);
-                            }
-                        };
-                        xmlhttp.open("GET", url, true);
-                        xmlhttp.send();
-
-                        function myFunction(arr) {
-
-                          var src = "";
-                          var uploaderName="";
-                          var postername="";
-                          var description="";
-                          var startDate="";
-                          var likes="";
-                          var releaseDate="";
-                          var endDate="";
-                          var posterid="";
-                          var like=[];
-                          var tags="";
-
-                            var out ="";
-                            var i;
-                            for(r = 0; r < arr.res.length/4; r++) {
-                              
-                              /*posterid=arr.res[i].id;
-                               postername=arr.res[i].name;
-                               likes=arr.res[i].likes;
-                               like=arr.res[i];*/
-
-                              var row=document.createElement("div");
-                        row.setAttribute("class","row");
-                        for(j=0;j<4;j++){
-
-                              i=(r*4)+j;
-                              posterid=arr.res[i].id;
-                              postername=arr.res[i].name;
-                              likes=arr.res[i].likes;
-                              like=arr.res[i].like;
-                              description=arr.res[i].description;
-                              releaseDate=arr.res[i].releaseDate;
-                              startDate=arr.res[i].startDate;
-                              endDate=arr.res[i].endDate;
-                              tags=arr.res[i].tags;
-                              src=arr.res[i].poster;
-                              uploaderName=arr.res[i].uploaderid;
-
-                              out+="\n"+i+"\n"+postername+"\n"+posterid+"\n"+likes;
-                               
-
-                        var column=document.createElement("div");
-                        column.setAttribute("class","col s12 m3");
-
-
-                        var card=document.createElement("div");
-                        card.setAttribute("class","card");
-
-                        var card_image=document.createElement("div");
-                        card_image.setAttribute("class","card-image waves-effect waves-block waves-light");
-
-                        var image = document.createElement("IMG");
-                        image.setAttribute("src",src);
-                        image.setAttribute("class","activator");
-
-                        card_image.appendChild(image);
-
-
-                        var card_content=document.createElement("div");
-                        card_content.setAttribute("class","card-content");
-
-                        var span=document.createElement("span");
-                        span.setAttribute("class","card-title activator grey-text text-darken-4");
-                        var title=document.createTextNode(postername);
-                        span.appendChild(title);
-
-
-                        var para=document.createElement("p");
-                        var link=document.createElement("a");
-                        link.setAttribute("href","#");
-                        var link_content=document.createTextNode("This is a link");
-
-                        link.appendChild(link_content);
-                        para.appendChild(link);
-
-                        card_content.appendChild(span);
-                        card_content.appendChild(para);
-
-
-                        var card_reveal=document.createElement("div");
-                        card_content.setAttribute("class","card-reveal");
-
-                        var span2=document.createElement("span");
-                        span2.setAttribute("class","card-title activator grey-text text-darken-4");
-                        var title2=document.createTextNode(postername);
-
-                        var icon = document.createElement("i");
-                        icon.setAttribute("class","material-icons right");
-                        var close=document.createTextNode("Close");
-
-                        icon.appendChild(close);
-                        span2.appendChild(title2);
-                        span2.appendChild(icon);
-
-                        var para2=document.createElement("p");
-                        var desc=document.createTextNode(description);
-                        para2.appendChild(desc);
-
-                        card_reveal.appendChild(span2);
-                        card_reveal.appendChild(para2);
-
-
-                        card.appendChild(card_image);
-                        card.appendChild(card_content);
-                        card.appendChild(card_reveal);
-
-                        column.appendChild(card);
-                        row.appendChild(column);
-
-                        document.getElementById("abhishek").appendChild(row);
-                        }
-                        }
-
-
-
-                        }
-
-
-
-
-                        </script>
-
-
-   <!--  Scripts-->
+  <!--  Scripts-->
    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
    <script src="js/materialize.js"></script>
    <script src="js/init.js"></script>
+   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script type="text/javascript" src="abc.js"></script>
    <script>
       $(document).ready(function(){
          // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
         $('.modal-trigger').leanModal();
       });
    </script>
-   <script>
-      $result.("http://0.0.0.0:3000/api/viewers/recent_nlfeed")
-   </script>
-  
 </body>
 </html>

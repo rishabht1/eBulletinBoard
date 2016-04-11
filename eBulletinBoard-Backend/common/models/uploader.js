@@ -1,55 +1,94 @@
 module.exports = function(Uploader) {
-    Uploader.upload=async function(id,name,poster,desc,rd,sd,ed,type,tags){
-        var check=Uploader.find({where:{id:id}})
+    Uploader.upload=async function(id,name,poster,desc,rd,sd,ed,st,et,type,tags){
+        var check=await Uploader.findOne({where:{id:id}})
+        // console.log(check)
         var res;
+        tags=tags.toLowerCase()
+        if(check==null){
+          res="notsuccess";
+          return res;
+        }
         try{
-      	await Uploader.app.models.posts.create( {
-  			"name": name,
-  			"poster": poster,
-			  "description": desc,
-			  "realeaseDate": rd,
-			  "startDate": sd,
-			  "endDate": ed,
-			  "likes": 0,
+        var k=await Uploader.app.models.posts.create( {
+        "name": name,
+        "poster": poster,
+        "description": desc,
+        "realeaseDate": rd,
+        "startDate": sd,
+        "endDate": ed,
+        "startTime": st,
+        "endTime": et,
+        "likes": 0,
         "tags":tags,
         "like":[],
-			  "type": type,
-			  "uploaderId": id
+        "type": type,
+        "uploaderId": id
         });
         res="success";
       }
       catch(e){
-        res="notsuccess";
+        res="error";
       }
+      console.log(k)
       return res;
     };
     Uploader.recent_feed=async function(id){
-   	var res;
-   	res=await Uploader.app.models.posts.find({where:{uploaderId:id},order:'startDate ASC'});
+    var res;
+    try{
+    res=await Uploader.app.models.posts.find({where:{uploaderId:id},order:'startDate ASC'});
     return res;
+    }
+    catch(e){
+    res="error";
+    return res;
+    }
    }
    Uploader.like_feed=async function(id){
     var res;
-    res=await Uploader.app.models.posts.find({where:{uploaderId:id},order:'likes DESC'});
-    return res;
-   }
+    try{
+       res=await Uploader.app.models.posts.find({where:{uploaderId:id},order:'likes DESC'});
+       return res;
+    }
+    catch(e){
+     res="error";
+     return res;
+    }
+  }
    Uploader.subscribers=async function(id){
-   	var res;
-   	var u=await Uploader.find({where:{id:id}});
-   	res=u[0].noOfSubscriber;
-    return res;
+    var res;
+    try{
+      var u=await Uploader.find({where:{id:id}});
+      res=u[0].noOfSubscriber;
+      return res;
+    }
+     catch(e){
+     res="error";
+     return res;
+    }
    }
     Uploader.totalposts=async function(id){
-   	var res;
-   	var u=await Uploader.find({where:{id:id}});
-   	res=u[0].noOfPosts;
+    var res;
+    try{
+      var u=await Uploader.find({where:{id:id}});
+    res=u[0].noOfPosts;
     console.log(res);
     return res;
+    }
+    catch(e){
+     res="error";
+     return res;
+    }
    }
    Uploader.upcomingEvent=async function(id){
    var res;
-    res=await Uploader.app.models.posts.find({where:{uploaderId:id},order:'startDate ASC',limit:1});
+   try{
+     res=await Uploader.app.models.posts.find({where:{uploaderId:id},order:'startDate ASC',limit:1});
     return res;
+   }
+   catch(e){
+     res="error";
+     return res;
+    }
    }
    Uploader.remoteMethod('upload',{
                              accepts:[{arg:'id',type:'string',required:true},
@@ -59,8 +98,10 @@ module.exports = function(Uploader) {
                                       {arg:'rd',type:'Date',required:true},
                                       {arg:'sd',type:'Date',required:true},
                                       {arg:'ed',type:'Date',required:true},
+                                      {arg:'st',type:'string',required:true},
+                                      {arg:'et',type:'string',required:true},
                                       {arg:'type',type:'boolean',required:true},
-                                      {arg:'tags',type:'array',required:true}],
+                                      {arg:'tags',type:'string',required:true}],
                              returns:{arg:'res',type:'string'},
                                  http: {path: '/upload', verb: 'get'}
                              })
@@ -90,4 +131,3 @@ module.exports = function(Uploader) {
                                  http: {path: '/upcomingEvent', verb: 'get'}
                              })
 };
-

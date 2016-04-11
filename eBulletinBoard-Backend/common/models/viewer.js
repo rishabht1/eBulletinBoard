@@ -1,8 +1,29 @@
 var app =require('../../server/server.js');
 module.exports = function(Viewer) {
+	Viewer.login=async function(id,password){
+		try{
+		var user=[];
+		user=await Viewer.findOne({where:{and:[{id:id},{password:password}]}})
+		console.log(user);
+		if(user==null){
+			user=await Viewer.app.models.uploader.findOne({where:{and:[{id:id},{password:password}]}})
+			if(user==null)
+				return "wrong"
+			else
+				return "uploader"
+		}
+		else{
+			return "viewer"
+		}
+	}
+		catch(e){
+			return 'error';
+		}
+	}
 	Viewer.recent_feed=async function(id){
 		//console.log(id);
-		var v=await Viewer.find({where:{id:id}});
+		try{
+			var v=await Viewer.find({where:{id:id}});
 		//console.log(v[0].name);
 		var subscriberList=v[0].subscriptions;
 		//console.log(subscriberList)
@@ -10,9 +31,15 @@ module.exports = function(Viewer) {
         res=await Viewer.app.models.posts.find({where:{and:[{uploaderId:{inq:subscriberList}},{realeaseDate:{gte:Date.now()}}]},
         	                         order: 'startDate ASC'})
         return res;
+    }
+    catch(e){
+			return 'error';
+		}
+		
 	}
 	Viewer.like_feed=async function(id){
-		console.log(id);
+		try{
+			console.log(id);
 		var v=await Viewer.find({where:{id:id}});
 		//console.log(v[0].name);
 		var subscriberList=v[0].subscriptions;
@@ -21,9 +48,14 @@ module.exports = function(Viewer) {
         res=await app.models.posts.find({where:{and:[{uploaderId:{inq:subscriberList}},{realeaseDate:{gt:Date.now()}}]},
         	                         order: 'likes DESC'})
         return res;
+		}
+		catch(e){
+			return 'error';
+		}
 	}
 	Viewer.subscribe=async function(id,uid){
-		var v=await Viewer.find({where:{id:id}});
+		try{
+			var v=await Viewer.find({where:{id:id}});
 		var currentSubscriptions=v[0].subscriptions;
 		currentSubscriptions.push(uid);
         await Viewer.update({id:id},{subscriptions:currentSubscriptions});
@@ -33,9 +65,14 @@ module.exports = function(Viewer) {
         await Viewer.app.models.Uploader.update({id:uid},{subscriberList:currentSubscribers});
         var res='Your are now succesfully subscribed to'+ uid
         return res;
+		}
+        catch(e){
+			return 'error';
+		}
 	}
 	Viewer.unsubscribe=async function(id,uid){
-        var v=await Viewer.find({where:{id:id}});
+       try{
+       	 var v=await Viewer.find({where:{id:id}});
 		var currentSubscriptions=v[0].subscriptions;
 		var i=currentSubscriptions.indexOf(uid);
 		if (i > -1) {
@@ -51,24 +88,48 @@ module.exports = function(Viewer) {
         await Viewer.app.models.Uploader.update({id:uid},{subscriberList:currentSubscribers}); 
         var res='Your are now unsubscribe to' + uid;
         return res;
+       }
+        catch(e){
+			return 'error';
+		}
 	}
 	Viewer.recent_nlfeed=async function(){
-		var res=await Viewer.app.models.posts.find({where:{realeaseDate:{gt:Date.now()}},order: 'startDate ASC'});
+		try{
+			var res=await Viewer.app.models.posts.find();
 		return res;
+		}
+		catch(e){
+			return 'error';
+		}
 	}
 	Viewer.like_nlfeed=async function(){
-		var res=await Viewer.app.models.posts.find({where:{realeaseDate:{gt:Date.now()}},order: 'likes DESC'});
+		try{
+			var res=await Viewer.app.models.posts.find({where:{realeaseDate:{gt:Date.now()}},order: 'likes DESC'});
 		return res;
+		}
+		catch(e){
+			return 'error';
+		}
 	}
 	Viewer.changeEmail=async function(id,mail){
-		await Viewer.update({id:id},{email:mail});
+		try{
+			await Viewer.update({id:id},{email:mail});
 		var res='Your email has been changed succesfully'
 		return res;
+		}
+		catch(e){
+			return 'error';
+		}
 	}
 	Viewer.showSubscribers=async function(id){
-		var v=await Viewer.find({where:{id:id}});
+		try{
+			var v=await Viewer.find({where:{id:id}});
 		var res=v[0].subscriptions
 		return res;
+		}
+		catch(e){
+			return 'error';
+		}
 	}
 	Viewer.remoteMethod('recent_feed',{
 		                         accepts:{arg:'id',type:'string',required:true},
@@ -100,6 +161,14 @@ module.exports = function(Viewer) {
 		                                 ],
 		                        returns:{arg:'res',type:'string'},
                                  http: {path: '/unsubscribe', verb: 'get'}
+		                         })
+	Viewer.remoteMethod('login',{
+		                         accepts:[
+		                         	      {arg:'id',type:'string',required:true},
+		                                  {arg:'password',type:'string',required:true}
+		                                 ],
+		                        returns:{arg:'res',type:'string'},
+                                 http: {path: '/login', verb: 'get'}
 		                         })
 	Viewer.remoteMethod('changeEmail',{
 		                         accepts:[

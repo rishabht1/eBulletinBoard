@@ -15,35 +15,39 @@
 <body bgcolor="#fffff0">
 
   <div id="testing">rishabh</div>
-  <script LANGUAGE="JavaScript">
-    ​  function uploadPoster() {
+    <script LANGUAGE="JavaScript">
+        function uploadPoster() {
       alert("Paresh ka karnama");
-    ​
       var test="abhishek";
       document.getElementById("testing").innerHTML=test;
       // getting data from form
       var dataForm = document.forms[0];
       var eventName = dataForm.eventName.value;
-      var timeFrom = dataForm.timeFrom.value;
-      var timeTo = dataForm.timeTo.value;
+      var timeFrom ="2:30" ;
+      var timeTo = "5:30";
+      var startDate = dataForm.timeFrom.value;
+      var endDate = dataForm.timeTo.value;
       var date = dataForm.date.value;
       var description = dataForm.description.value;
       
       //not coded by Rishabh yet
       var src = "http://data.whicdn.com/images/23690152/large.jpg";
-      var uploaderid = "this.getUploaderName";
+      var uploaderid = "Debate";
       var releaseDate = "2012-09-05";
       var temporary = "false";
       var tags = "";
-    ​
+     
       //uploading to database
       var xmlhttp = new XMLHttpRequest();
-      var url = "http://0.0.0.0:3000/api/uploaders/upload?id="+uploaderid+"&name="+eventName+"&poster="+src+"&desc="+description+"&rd="+releaseDate+"&sd="+timeFrom+"&ed="+timeTo+"&type="+temporary+"&tags="+tags;
-    ​
+      url= "http://0.0.0.0:3000/api/uploaders/upload?id=proClub&name=Abhishek%20chutiya&poster=hvchjs&desc=nnvxdhc&rd=2016-05-05&sd=2016-05-05&ed=2016-05-05&st=2%3A00&et=3%3A00&type=true&tags=cgdh"
+
+      var url = "http://0.0.0.0:3000/api/uploaders/upload?id="+uploaderid+"&name="+eventName+"&poster="+src+"&desc="+description+"&rd="+releaseDate+"&sd="+startDate+"&ed="+endDate+"&st="+timeFrom+"&et="+timeTo+"&type="+temporary+"&tags="+tags;
+      alert(url);
       xmlhttp.onreadystatechange = function() {
           if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
               var myArr = JSON.parse(xmlhttp.responseText);
               myFunction(myArr);
+              alert(url);
           }
       };
       xmlhttp.open("GET", url, true);
@@ -59,7 +63,7 @@
         }
       }
     }
-​</script>
+    </script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
   
 
@@ -196,7 +200,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat" onclick="{alert('Y">Post</a>
+                        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat" onclick="uploadPoster()">Post</a>
                         <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Back</a>
                     </div>
                 </div>
@@ -237,7 +241,7 @@
                 <div class="col s12 m3">
                     <div class="card">
                         <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src="http://lorempixel.com/g/200/300">
+                            <img class="activator" src="http://lorempixel.com/200/300">
                         </div>
                         <div class="card-content">
                             <span class="card-title activator grey-text text-darken-4">Card Title </span>
@@ -252,7 +256,7 @@
                 <div class="col s12 m3">
                     <div class="card">
                         <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src="http://lorempixel.com/g/200/300">
+                            <img class="activator" src="http://lorempixel.com/200/300">
                         </div>
                         <div class="card-content">
                             <span class="card-title activator grey-text text-darken-4">Card Title </span>
@@ -267,7 +271,7 @@
                 <div class="col s12 m3">
                     <div class="card">
                         <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src="http://lorempixel.com/g/200/300">
+                            <img class="activator" src="http://lorempixel.com/200/300">
                         </div>
                         <div class="card-content">
                             <span class="card-title activator grey-text text-darken-4">Card Title </span>
@@ -282,7 +286,7 @@
                 <div class="col s12 m3">
                     <div class="card">
                         <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src="http://lorempixel.com/g/200/300">
+                            <img class="activator" src="http://lorempixel.com/200/300">
                         </div>
                         <div class="card-content">
                             <span class="card-title activator grey-text text-darken-4">Card Title </span>
@@ -297,7 +301,7 @@
                 <div class="col s12 m3">
                     <div class="card">
                         <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src="http://lorempixel.com/g/200/300">
+                            <img class="activator" src="http://lorempixel.com/200/300">
                         </div>
                         <div class="card-content">
                             <span class="card-title activator grey-text text-darken-4">Card Title </span>
@@ -312,7 +316,7 @@
                 <div class="col s12 m3">
                     <div class="card">
                         <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src="http://lorempixel.com/g/200/300">
+                            <img class="activator" src="http://lorempixel.com/200/300">
                         </div>
                         <div class="card-content">
                             <span class="card-title activator grey-text text-darken-4">Card Title </span>
@@ -327,7 +331,7 @@
                 <div class="col s12 m3">
                     <div class="card">
                         <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src="http://lorempixel.com/g/200/300">
+                            <img class="activator" src="http://lorempixel.com/200/300">
                         </div>
                         <div class="card-content">
                             <span class="card-title activator grey-text text-darken-4">Card Title </span>
@@ -342,7 +346,7 @@
                 <div class="col s12 m3">
                     <div class="card">
                         <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src="http://lorempixel.com/g/200/300">
+                            <img class="activator" src="http://lorempixel.com/200/300">
                         </div>
                         <div class="card-content">
                             <span class="card-title activator grey-text text-darken-4">Card Title </span>

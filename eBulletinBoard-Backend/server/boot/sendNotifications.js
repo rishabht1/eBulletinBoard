@@ -42,4 +42,4 @@ async function sendMail(){
 async function loop(){
 	setTimeout(sendMail,1000)
 }
-loop()
+//loop()
