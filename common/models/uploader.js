@@ -1,8 +1,9 @@
 module.exports = function(Uploader) {
-    Uploader.upload=async function(id,name,poster,desc,rd,sd,ed,st,et,type,tags){
+    Uploader.upload=async function(id,name,poster,desc,rd,sd,st,et,ed,type,tags){
         var check=await Uploader.findOne({where:{id:id}})
         // console.log(check)
         var res;
+        console.log(id+" "+name+" "+ed+" "+sd+" "+st+" "+et+" "+type+" "+tags)
         tags=tags.toLowerCase()
         if(check==null){
           res="notsuccess";
