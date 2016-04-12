@@ -124,7 +124,7 @@ module.exports = function(Viewer) {
 	}
 	Viewer.recent_nlfeed=async function(){
 		try{
-			var res=await Viewer.app.models.posts.find({where:{realeaseDate:{gt:Date.now()}},order: 'startDate ASC'});
+			var res=await Viewer.app.models.posts.find({where:{realeaseDate:{lt:Date.now()}},order: 'startDate ASC'});
 			return res;
 		}
 		catch(e){
@@ -133,7 +133,7 @@ module.exports = function(Viewer) {
 	}
 	Viewer.like_nlfeed=async function(){
 		try{
-			var res=await Viewer.app.models.posts.find({where:{realeaseDate:{gt:Date.now()}},order: 'likes DESC'});
+			var res=await Viewer.app.models.posts.find({where:{realeaseDate:{lt:Date.now()}},order: 'likes DESC'});
 			return res;
 		}
 		catch(e){
