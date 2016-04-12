@@ -1,13 +1,13 @@
 module.exports = function(Posts) {
   Posts.like=async function(id,vid){
     try{
-       var l=await Posts.findById(id);
-    console.log(l);
-    var l1=l.likes;
-    await Posts.update({id:id},{likes:l1+1});
-    var peopleliked=l.like;
-    peopleliked.push(vid);
-    await Posts.update({id:id},{like:peopleliked});
+        var l=await Posts.findById(id);
+        console.log(l);
+        var l1=l.likes;
+        await Posts.update({id:id},{likes:l1+1});
+        var peopleliked=l.like;
+        peopleliked.push(vid);
+        await Posts.update({id:id},{like:peopleliked});
     }
     catch(e){
       return 'error';
@@ -16,8 +16,8 @@ module.exports = function(Posts) {
   Posts.deletePost=async function(id){
   	try{
       await Posts.destroyAll({id:id});
-    var res='This post has been deleted successfully'
-    return res;
+      var res='This post has been deleted successfully'
+      return res;
     }
     catch(e){
       return 'error';
@@ -26,25 +26,25 @@ module.exports = function(Posts) {
   Posts.search=async function(k){
     try{
       var res=[];
-    k=k.toLowerCase();
-    var keyWords=k.split(" ")
-    for(var i=0;i<keyWords.length;i++){
-      console.log(keyWords[i])
-     res[i]=await Posts.find({where:{tags:{like:keyWords[i]}}});
-    }
-    var set=new Set();
-    for(let i=0;i<res.length;i++){
-      for(let j=0;j<res[i].length;j++)
-        await set.add(res[i][j].name);
-    }
-    //console.log(set)
-    res=[]
-    var k=0
-    for(var i of set){
-      res[k]=await Posts.findOne({where:{name:i}})
-      k++
-    }
-    return res
+      k=k.toLowerCase();
+      var keyWords=k.split(" ")
+      for(var i=0;i<keyWords.length;i++){
+        console.log(keyWords[i])
+       res[i]=await Posts.find({where:{tags:{like:keyWords[i]}}});
+      }
+      var set=new Set();
+      for(let i=0;i<res.length;i++){
+        for(let j=0;j<res[i].length;j++)
+          await set.add(res[i][j].name);
+      }
+      //console.log(set)
+      res=[]
+      var k=0
+      for(var i of set){
+        res[k]=await Posts.findOne({where:{name:i}})
+        k++
+      }
+      return res
     }
     catch(e){
       return 'error';

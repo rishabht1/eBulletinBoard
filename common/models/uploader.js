@@ -32,6 +32,7 @@ module.exports = function(Uploader) {
       console.log(k)
       return res;
     };
+    
     Uploader.recent_feed=async function(id){
    	var res;
     try{
@@ -66,7 +67,7 @@ module.exports = function(Uploader) {
      return res;
     }
    }
-    Uploader.totalposts=async function(id){
+  Uploader.totalposts= async function(id){
    	var res;
     try{
       var u=await Uploader.find({where:{id:id}});
@@ -79,7 +80,7 @@ module.exports = function(Uploader) {
      return res;
     }
    }
-   Uploader.upcomingEvent=async function(id){
+   Uploader.upcomingEvent= async function(id){
    var res;
    try{
      res=await Uploader.app.models.posts.find({where:{uploaderId:id},order:'startDate ASC',limit:1});
@@ -112,7 +113,7 @@ module.exports = function(Uploader) {
                              })
    Uploader.remoteMethod('like_feed',{
                              accepts:{arg:'id',type:'string',required:true},
-                             returns:{arg:'res',type:'array'},
+                             returns:{arg:'res',type:'object'},
                                  http: {path: '/like_feed', verb: 'get'}
                              })
    Uploader.remoteMethod('subscribers',{

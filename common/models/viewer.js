@@ -1,38 +1,50 @@
 var app =require('../../server/server.js');
+var session = app.session;
 module.exports = function(Viewer) {
 	Viewer.login=async function(id,password){
+		console.log(session)
 		try{
-		var user=[];
-		user=await Viewer.findOne({where:{and:[{id:id},{password:password}]}})
-		console.log(user);
-		if(user==null){
-			user=await Viewer.app.models.uploader.findOne({where:{and:[{id:id},{password:password}]}})
-			if(user==null)
-				return "wrong"
-			else
-				return "uploader"
+			var user=[];
+			user=await Viewer.findOne({where:{and:[{id:id},{password:password}]}})
+			//console.log(user);
+			if(user==null){
+				user=await Viewer.app.models.uploader.findOne({where:{and:[{id:id},{password:password}]}})
+				if(user==null)
+					return "wrong"
+				else{
+					return "uploader"
+					//req.session.id=id;
+					req.session.type="uploader"
+				}
+			}
+			else{
+				//session.id=id;
+				//session.type="viewer"
+				//console.log(session.id);
+				return "viewer"
+			}
 		}
-		else{
-			return "viewer"
+		catch(e){
+			return e;
 		}
 	}
-		catch(e){
-			return 'error';
-		}
+	Viewer.print=async function(){
+		var res=session.id
+		return res;
 	}
 	Viewer.recent_feed=async function(id){
 		//console.log(id);
 		try{
 			var v=await Viewer.find({where:{id:id}});
-		//console.log(v[0].name);
-		var subscriberList=v[0].subscriptions;
-		//console.log(subscriberList)
-        var res;
-        res=await Viewer.app.models.posts.find({where:{and:[{uploaderId:{inq:subscriberList}},{realeaseDate:{gte:Date.now()}}]},
-        	                         order: 'startDate ASC'})
-        return res;
-    }
-    catch(e){
+			//console.log(v[0].name);
+			var subscriberList=v[0].subscriptions;
+			//console.log(subscriberList)
+	        var res;
+	        res=await Viewer.app.models.posts.find({where:{and:[{uploaderId:{inq:subscriberList}},{realeaseDate:{gte:Date.now()}}]},
+	        	                         order: 'startDate ASC'})
+	        return res;
+   		}
+    	catch(e){
 			return 'error';
 		}
 		
@@ -40,14 +52,14 @@ module.exports = function(Viewer) {
 	Viewer.like_feed=async function(id){
 		try{
 			console.log(id);
-		var v=await Viewer.find({where:{id:id}});
-		//console.log(v[0].name);
-		var subscriberList=v[0].subscriptions;
-		//console.log(subscriberList)
-        var res;
-        res=await app.models.posts.find({where:{and:[{uploaderId:{inq:subscriberList}},{realeaseDate:{gt:Date.now()}}]},
-        	                         order: 'likes DESC'})
-        return res;
+			var v=await Viewer.find({where:{id:id}});
+			//console.log(v[0].name);
+			var subscriberList=v[0].subscriptions;
+			//console.log(subscriberList)
+	        var res;
+	        res=await app.models.posts.find({where:{and:[{uploaderId:{inq:subscriberList}},{realeaseDate:{gt:Date.now()}}]},
+	        	                         order: 'likes DESC'})
+	        return res;
 		}
 		catch(e){
 			return 'error';
@@ -56,47 +68,64 @@ module.exports = function(Viewer) {
 	Viewer.subscribe=async function(id,uid){
 		try{
 			var v=await Viewer.find({where:{id:id}});
-		var currentSubscriptions=v[0].subscriptions;
-		currentSubscriptions.push(uid);
-        await Viewer.update({id:id},{subscriptions:currentSubscriptions});
-        var u=app.models.Uploader.find({where:{id:uid}});
-        var currentSubscribers=u[0].subscriberList;
-        currentSubscribers.push(id);
-        await Viewer.app.models.Uploader.update({id:uid},{subscriberList:currentSubscribers});
-        var res='Your are now succesfully subscribed to'+ uid
-        return res;
+			var currentSubscriptions=v[0].subscriptions;
+			currentSubscriptions.push(uid);
+	        await Viewer.update({id:id},{subscriptions:currentSubscriptions});
+	        var u=await app.models.Uploader.find({where:{id:uid}});
+	        var currentSubscribers=u[0].subscriberList;
+	        currentSubscribers.push(id);
+	        await Viewer.app.models.Uploader.update({id:uid},{subscriberList:currentSubscribers});
+	        var res='Your are now succesfully subscribed to '+ uid
+	        return res;
 		}
         catch(e){
 			return 'error';
 		}
 	}
+	Viewer.isSubscribed=async function(id,uid){
+		var res='No';
+		console.log(id);
+		try{
+			var v=await Viewer.find({where:{id:id}});
+			var currentSubscriberscriptions=v[0].subscriptions;
+			console.log(currentSubscriberscriptions)
+			for(var i=0;i<currentSubscriberscriptions.length;i++){
+				if(currentSubscriberscriptions[i]===uid)
+					res= "yes"
+			}
+		}
+        catch(e){
+			res= 'error';
+		}
+		return res;
+	}
 	Viewer.unsubscribe=async function(id,uid){
        try{
-       	 var v=await Viewer.find({where:{id:id}});
-		var currentSubscriptions=v[0].subscriptions;
-		var i=currentSubscriptions.indexOf(uid);
-		if (i > -1) {
-   			 currentSubscriptions.splice(i, 1);
-		}
-        await Viewer.update({id:id},{subscriptions:currentSubscriptions});
-        var u=app.models.Uploader.find({where:{id:uid}});
-        var currentSubscribers=u[0].subscriberList;
-        i=currentSubscribers.indexOf(id);
-        if (i > -1) {
-   			 currentSubscribers.splice(i, 1);
-		}
-        await Viewer.app.models.Uploader.update({id:uid},{subscriberList:currentSubscribers}); 
-        var res='Your are now unsubscribe to' + uid;
-        return res;
+	       	 var v=await Viewer.find({where:{id:id}});
+			var currentSubscriptions=v[0].subscriptions;
+			var i=currentSubscriptions.indexOf(uid);
+			if (i > -1) {
+	   			 currentSubscriptions.splice(i, 1);
+			}
+	        await Viewer.update({id:id},{subscriptions:currentSubscriptions});
+	        var u=await app.models.Uploader.find({where:{id:uid}});
+	        var currentSubscribers=u[0].subscriberList;
+	        i=currentSubscribers.indexOf(id);
+	        if (i > -1) {
+	   			 currentSubscribers.splice(i, 1);
+			}
+	        await Viewer.app.models.Uploader.update({id:uid},{subscriberList:currentSubscribers}); 
+	        var res='Your are now unsubscribe to ' + uid;
+	        return res;
        }
         catch(e){
-			return 'error';
+			return e;
 		}
 	}
 	Viewer.recent_nlfeed=async function(){
 		try{
 			var res=await Viewer.app.models.posts.find({where:{realeaseDate:{gt:Date.now()}},order: 'startDate ASC'});
-		return res;
+			return res;
 		}
 		catch(e){
 			return 'error';
@@ -105,7 +134,7 @@ module.exports = function(Viewer) {
 	Viewer.like_nlfeed=async function(){
 		try{
 			var res=await Viewer.app.models.posts.find({where:{realeaseDate:{gt:Date.now()}},order: 'likes DESC'});
-		return res;
+			return res;
 		}
 		catch(e){
 			return 'error';
@@ -114,8 +143,8 @@ module.exports = function(Viewer) {
 	Viewer.changeEmail=async function(id,mail){
 		try{
 			await Viewer.update({id:id},{email:mail});
-		var res='Your email has been changed succesfully'
-		return res;
+			var res='Your email has been changed succesfully'
+			return res;
 		}
 		catch(e){
 			return 'error';
@@ -124,13 +153,17 @@ module.exports = function(Viewer) {
 	Viewer.showSubscribers=async function(id){
 		try{
 			var v=await Viewer.find({where:{id:id}});
-		var res=v[0].subscriptions
-		return res;
+			var res=v[0].subscriptions
+			return res;
 		}
 		catch(e){
 			return 'error';
 		}
 	}
+	Viewer.remoteMethod('print',{
+		                         returns:{arg:'res',type:'array'},
+                                 http: {path: '/print', verb: 'get'}
+		                         })
 	Viewer.remoteMethod('recent_feed',{
 		                         accepts:{arg:'id',type:'string',required:true},
 		                         returns:{arg:'res',type:'array'},
@@ -186,4 +219,13 @@ module.exports = function(Viewer) {
 		                          returns:{arg:'res',type:'string'},
                                  http: {path: '/subscribe', verb: 'get'}
 		                         })
+	Viewer.remoteMethod('isSubscribed',{
+		                         accepts:[
+		                         	      {arg:'id',type:'string',required:true},
+		                                  {arg:'uid',type:'string',required:true}
+		                                 ],
+		                          returns:{arg:'res',type:'string'},
+                                 http: {path: '/isSubscribe', verb: 'get'}
+		                         })
+
 };
