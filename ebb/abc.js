@@ -92,20 +92,31 @@ function getPosts(url,cb){
 }
 
 var app = angular.module("abhishek_abcd", ['ngCookies']);
-app.controller("abhishekctrl",function($scope){
+
+app.controller("abhishekctrl",function($scope,$cookies){
 	$scope.names=Names;
 	$scope.books=Books;
-	//$scope.nl_like_feed=nl_like_feed;
-	$scope.nl_recent_feed=recent_feed;
-	//$scope.l_like_feed=l_like_feed;
-	//$scope.l_recent_feed=l_recent_feed;
+
   
- 
-  getPosts(nl_recent_url,function(arr){
+  var url=nl_recent_url;
+  
+  if($cookies.get('personal')=='true'){
+    if($cookies.get('loggedin')!='true')
+      url=nl_recent_url;
+    else{
+      //alert($cookies.get('user'))
+      url=l_like_url+$cookies.get('user');
+    }
+  }
+  
+
+
+  getPosts(url,function(arr){
     $scope.nl_recent_feed=arr.res;
     console.log($scope.nl_recent_feed);
   })
 
+  
   $scope.getNumber = function(numb){
     if (numb == null){
       return [];
@@ -121,6 +132,8 @@ app.controller("abhishekctrl",function($scope){
     return new Array(n);
   }
 
+
+
   $scope.getRem = function(num){
     if(num == null){
       return 0;
@@ -130,6 +143,25 @@ app.controller("abhishekctrl",function($scope){
     return r;
   }
 
+
+  $scope.togglePersonal = function(){
+    //alert("I'm in personalToggle " + $scope.personalToggle)
+    $cookies.put('personal',$scope.personalToggle);
+    //alert("Cookie value is "+$cookies.get('personal'));
+    window.location.reload();
+  }
+
+  $scope.getToggleValue = function(){
+    //alert("Cookie value is in getToggle "+$cookies.get('personal'));
+    //alert("I'm in getToggle " + $scope.personalToggle )
+    if($cookies.get('personal')=='true'){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+
   setTimeout(function(){
     $scope.$apply(function(){
     //alert("apply called");
@@ -138,8 +170,6 @@ app.controller("abhishekctrl",function($scope){
   console.log($scope.nl_recent_feed);	
 
   
-
-
 });
 
 
@@ -151,33 +181,75 @@ app.directive("w3TestDirective", function() {
 });
 
 
-app.controller("loginctrl",['$cookies',function($scope,$cookies){
+app.controller("loginctrl",function($scope,$cookies){
+  console.log('hi i m in login');
   $scope.userName='';
   $scope.pass='';
+
+
+  $scope.name = function(){
+    //alert("Im in name in login "+$cookies.get('loggedin')+" "+$cookies.get('user'));
+    if($cookies.get('loggedin')!='true'){
+      return "Login";
+    }else{
+      //alert($cookies.get('user'));
+      return $cookies.get('user');
+    }
+    return "hello";
+  }
+
+  $scope.show2 = function(){
+
+    $cookies.put('loggedin',false);
+    $cookies.put('user',"NONE");
+    //alert("Current Login "+$cookies.get('user')+" "+$cookies.get('loggedin'));
+
+  }
+
   $scope.show = function(){
-    alert("The credentials are :" + $scope.userName+" "+$scope.pass);
+    //alert("The credentials are :" + $scope.userName+" "+$scope.pass);
     var xmlhttp = new XMLHttpRequest();
+    //alert('hiii')
+    //xmlhttp.addRequestHeader( 'Access-Control-Allow-origin', "*")
+    alert('hiiibdjvbd')
     var url = "http://0.0.0.0:3000/api/viewers/login?id="+$scope.userName+"&password="+$scope.pass;
     var result;
-
     xmlhttp.onreadystatechange = function() {
+      //alert(xmlhttp.readyState+" "+xmlhttp.status)
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+              //alert('here')
               var myArr=JSON.parse(xmlhttp.responseText);
               if(myArr.res=="wrong"){
                 alert("Wrong credentials");
               }else{
-                $cookies.user=$scope.userName;
-                alert("congrats u have successfully logged in"+$cookies.user);
+                $cookies.put('loggedin',true);
+                $cookies.put('user',$scope.userName);
+                //alert("congrats u have successfully logged in"+$cookies.get('user'));
+                reload();
               }
         }
     };
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
   };
+  function reload(){
+    window.location.reload();
+  }
+
+  $scope.getModal = function(){
+    if($cookies.get('loggedin')!='true'){
+      //alert("returning Moda1");
+      return "#modal1";
+    }else{
+      //alert("returning Modal2");
+      return "#modal2";
+    }
+  };
 
 
 
-}]);
+
+});
 
 app.controller("debate",function($scope){
   
@@ -195,8 +267,115 @@ app.controller("debate",function($scope){
     $scope.$apply(function(){
     //alert("apply called");
     });
-  },1000);
+  },100);
 
   console.log($scope.dfeed);
+
+});
+
+
+app.controller("Specific",function($cookies,$scope){
+  
+  //alert("Specific Controller loaded");
+  
+  $scope.debate_specific = function(){
+    //alert("Specific function called");
+    if($cookies.get('loggedin')=='true'){
+      alert("Logged in user is "+$cookies.get('user'));
+      if($cookies.get('user')=="Debate"){
+        return "specific_user.html"
+      }
+    }
+    return "specific.html"
+  }
+
+  $scope.senate_specific = function(){
+    //alert("Specific function called");
+    if($cookies.get('loggedin')=='true'){
+      alert("Logged in user is "+$cookies.get('user'));
+      if($cookies.get('user')=="Debate"){
+        return "specific_user.html"
+      }
+    }
+    return "specific.html"
+  }
+
+  $scope.dtg_specific = function(){
+    //alert("Specific function called");
+    if($cookies.get('loggedin')=='true'){
+      alert("Logged in user is "+$cookies.get('user'));
+      if($cookies.get('user')=="Debate"){
+        return "specific_user.html"
+      }
+    }
+    return "specific.html"
+  }
+});
+
+
+app.controller('pageDatactrl',function($cookies,$scope){
+
+  $scope.result="";
+
+  $scope.isSubscribed =function(club){
+    var xmlhttp = new XMLHttpRequest();
+    var url = "http://0.0.0.0:3000/api/viewers/isSubscribe?id=" +$cookies.get('user') + "&uid=" + club;
+    var result = "Subscribe";
+   
+    xmlhttp.onreadystatechange = function() {
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        var myArr=JSON.parse(xmlhttp.responseText);
+        if(myArr.res=="yes"){
+          $scope.result = "Unsubscribe";
+        }else{
+          $scope.result = "Subscribe";
+        }
+      }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+    //alert("The club is "+result);
+    console.log("The club is "+$scope.result);
+    setTimeout(function(){
+      $scope.$apply(function(){
+      //alert("apply called");
+      });
+    },1000);
+
+
+    return $scope.result;
+  }
+
+  $scope.toggleSubscription = function(club){
+    var xmlhttp = new XMLHttpRequest();
+    var unsuburl = "http://0.0.0.0:3000/api/viewers/unsubscribe?id=" +$cookies.get('user')+ "&uid="+club;
+    var suburl = "http://0.0.0.0:3000/api/viewers/subscribe?id=" +$cookies.get('user')+ "&uid="+club;
+    var result = "Subscribe";
+    var url;
+   
+    if($scope.isSubscribed(club)=="Subscribe"){
+      url=suburl;
+    }else{
+      url=unsuburl;
+    }
+
+    xmlhttp.onreadystatechange = function() {
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        var myArr=JSON.parse(xmlhttp.responseText);
+        if(myArr.res!="error"){
+          result = "yay unsubscribed/subscribed";
+        }else{
+          result = "error";
+        }
+      }
+    };
+
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+    window.location.reload();
+    return result;
+  }
+
+  
 
 });

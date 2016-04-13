@@ -27,8 +27,8 @@
                </div>
                <ul class="right hide-on-med-and-down">                        
                   <li><a href="javascript:void(0);" class='dropdown-button btn-floating mdi-navigation-menu' href='#' data-activates='dropdown1' ></a>
-                     <ul id='dropdown1' class='dropdown-content' >
-                        <li><a href="specific_user.html">Debate Club</a></li>
+                     <ul id='dropdown1' class='dropdown-content' ng-controller="Specific" >
+                        <li><a ng-init="temp=debate_specific()"href="{{temp}}">Debate Club</a></li>
                         <li><a href="specific.html">Press Club</a></li>
                         <li><a href="specific.html">Headrush</a></li>
                         <li><a href="specific.html">DTG</a></li>
@@ -46,17 +46,17 @@
                      </ul>
                   </li>                        
                   <li>
-                     <div class="switch">
+                     <div class="switch" ng-controller="abhishekctrl" ng-init="personalToggle = getToggleValue()">
                         <label>
                            Home
-                           <input type="checkbox">
+                           <input type="checkbox" ng-model="personalToggle" ng-click="togglePersonal()">
                            <span class="lever"></span>
                            Personal
                         </label>
                      </div>
                   </li>                        
-                  <li>
-                     <a class = "modal-trigger" href="#modal1">Login</a>
+                  <li ng-controller = "loginctrl" ng-init="l=name()">
+                     <a id = "loginName" class = "modal-trigger" ng-init="m=getModal() "href="{{m}}">{{l}}</a>
                   </li>
                </ul>
             </div>
@@ -85,10 +85,18 @@
          </form>
       </div>
       <div class="modal-footer">
-         <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click = "show()">Login</a>
+         <a  class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click = "show()">Login</a>
       </div>
    </div>
 
+   <div id="modal2" class="modal" ng-controller = "loginctrl">
+      <div class="modal-content">
+         <h6 class="center">Login into eBulletinBoard</h6>
+      </div>
+      <div class="modal-footer">
+         <a href="javascript:window.location.reload();" class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click = "show2()">Logout</a>
+      </div>
+   </div>
 
    <div id="index-banner" class="parallax-container">
       <div class="section no-pad-bot">
@@ -111,25 +119,7 @@
                            
 
    <div class="container" ng-controller = "abhishekctrl" >
-      <div class="section" >
-<!--          <div class="row" ng-repeat="x in nl_recent_feed | filter:searchText" ng-if = "$index % 4 == 0">
-            <div class="col s12 m3" ng-repeat="i in [$index, $index+1, $index+2, $index+3]" ng-if = "nl_recent_feed[i] != null">
-               <div class="card">
-                  <div class="card-image waves-effect waves-block waves-light">
-                     <img class="activator" src="http://lorempixel.com/200/300">
-                  </div>
-                  <div class="card-content">
-                     <span class="card-title activator grey-text text-darken-4">{{nl_recent_feed[i].tags}}Card Title </span>
-                        <p><a href="#">{{nl_recent_feed[i].name}}</a></p>
-                  </div>
-                  <div class="card-reveal">
-                     <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-                     <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                  </div>
-               </div>
-            </div>
-         </div> -->
-
+      <div class="section">
          <div class="row"> 
             <div class="col s12 m3" ng-repeat="x in nl_recent_feed | filter:searchText">
                <div class="card">
@@ -147,29 +137,8 @@
                </div>
             </div>
          </div>
-
-
-
-
-         <!--<div class="row" ng-repeat = "y in getNumber(nl_recent_feed.length)" ng-if  = "nl_recent_feed != null">
-            <div class="col s12 m3 " ng-repeat="x in nl_recent_feed.slice(x, x+4)| filter:searchText" ng-if = "x != null">
-               <div class="card">
-                  <div class="card-image waves-effect waves-block waves-light">
-                     <img class="activator" src="http://lorempixel.com/200/300">
-                  </div>
-                  <div class="card-content">
-                     <span class="card-title activator grey-text text-darken-4">{{x.tags}}Card Title </span>
-                        <p><a href="#">{{x.name}}</a></p>
-                  </div>
-                  <div class="card-reveal">
-                     <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-                     <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                  </div>
-               </div>
-            </div>
-         </div>
       </div>
-   </div>-->
+   </div>
 
 
   

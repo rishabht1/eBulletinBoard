@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
   <title>eBulletinBoard</title>
 
@@ -14,14 +14,13 @@
 
 <body bgcolor="#fffff0"  ng-app = "abhishek_abcd">
 
-  <div id="testing">rishabh</div>
     <script LANGUAGE="JavaScript">
         function uploadPoster() {
       alert("Paresh ka karnama");
       var test="abhishek";
-      document.getElementById("testing").innerHTML=test;
+      //document.getElementById("testing").innerHTML=test;
       // getting data from form
-      var dataForm = document.forms[0];
+      var dataForm = document.forms[1];
       var eventName = dataForm.eventName.value;
       var timeFrom ="2:30" ;
       var timeTo = "5:30";
@@ -31,17 +30,17 @@
       var description = dataForm.description.value;
       
       //not coded by Rishabh yet
-      var src = "http://data.whicdn.com/images/23690152/large.jpg";
+      var src = "kcvmlkfv";
       var uploaderid = "Debate";
       var releaseDate = "2012-09-05";
       var temporary = "false";
-      var tags = "";
-     
+      var tags = "hello";
+       alert("here");
       //uploading to database
       var xmlhttp = new XMLHttpRequest();
       url= "http://0.0.0.0:3000/api/uploaders/upload?id=proClub&name=Abhishek%20chutiya&poster=hvchjs&desc=nnvxdhc&rd=2016-05-05&sd=2016-05-05&ed=2016-05-05&st=2%3A00&et=3%3A00&type=true&tags=cgdh"
 
-      var url = "http://0.0.0.0:3000/api/uploaders/upload?id="+uploaderid+"&name="+eventName+"&poster="+src+"&desc="+description+"&rd="+releaseDate+"&sd="+startDate+"&ed="+endDate+"&st="+timeFrom+"&et="+timeTo+"&type="+temporary+"&tags="+tags;
+      var url = "http://0.0.0.0:3000/api/uploaders/upload?id="+uploaderid+"&name="+eventName+"&poster="+src+"&desc="+description+"&rd="+releaseDate+"&sd="+startDate+"&st="+timeFrom+"&et="+timeTo+"&ed="+endDate+"&type="+temporary+"&tags="+tags;
       alert(url);
       xmlhttp.onreadystatechange = function() {
           if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -58,7 +57,7 @@
           alert("successful");
           return true;
         }else{
-          alert("unsuccessful");//dialog box for unsuccessful post upload
+          alert(arr.res);//dialog box for unsuccessful post upload
           return false;
         }
       }
@@ -99,7 +98,7 @@
                           </ul>
                         </li>
 
-                        <li>
+                      <!--   <li>
                             <div class="switch">
                                 <label>
                                     Home
@@ -108,10 +107,10 @@
                                     Personal
                                 </label>
                             </div>
-                        </li>
+                        </li> -->
 
-                        <li>
-                            <a class = "modal-trigger" href="#modal1">Login</a>
+                        <li ng-controller = "loginctrl" ng-init="l=name()">
+                          <a id = "loginName" class = "modal-trigger" ng-init="m=getModal() "href="{{m}}">{{l}}</a>
                         </li>
                     </ul>
                 </div>
@@ -127,11 +126,44 @@
             <img src="http://lorempixel.com/200/200" alt="" class="circle responsive-img">
             <h3 class="header center text-lighten-1">The Debate Club</h3>
             <!-- Modal Trigger -->
-            <a class="waves-effect cyan waves-light btn modal-trigger" href="#modal1">Upload An Event</a>
+            <a class="waves-effect cyan waves-light btn modal-trigger" href="#upload_modal1">Upload An Event</a>
+            <!-- Modal Structure _LOGIN -->
+
+              <div id="modal1" class="modal" ng-controller = "loginctrl">
+                <div class="modal-content">
+                   <h6 class="center">Login into eBulletinBoard</h6>
+                   <form>
+                      <div class="row">
+                         <div class="input-field col s6">
+                            <input id="first_name" type="text" class="validate" ng-model = "userName">
+                            <label for="first_name">Username</label>
+                         </div>
+                      </div>
+                      <div class="row">
+                         <div class="input-field col s6">
+                            <input id="password" type="password" class="validate" ng-model = "pass">
+                            <label for="first_name">Password</label>
+                         </div>
+                      </div>
+                   </form>
+                </div>
+                <div class="modal-footer">
+                   <a href="javascript:window.location.reload();" class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click = "show()">Login</a>
+                </div>
+              </div>
+
+              <div id="modal2" class="modal" ng-controller = "loginctrl">
+                <div class="modal-content">
+                   <h6 class="center">Login into eBulletinBoard</h6>
+                </div>
+                 <div class="modal-footer">
+                   <a href="index.html" class=" modal-action modal-close waves-effect waves-green btn-flat" ng-click = "show2()">Logout</a>
+                </div>
+              </div>            
 
             <!-- Modal Structure -->
             <div>
-                <div id="modal1" class="modal">
+                <div id="upload_modal1" class="modal">
                     <div class="modal-content">
                         <h5><u>Uplaod an event</u></h5>
                         <div class="row">
@@ -168,14 +200,14 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <a href="#modal2" class=" modal-action modal-close waves-effect waves-green btn-flat modal-trigger">Next</a>
+                        <a href="#image_modal2" class=" modal-action modal-close waves-effect waves-green btn-flat modal-trigger">Next</a>
                         <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
                     </div>
                 </div>
 
           
                 <!-- Modal Structure -->
-                <div id="modal2" class="modal">
+                <div id="image_modal2" class="modal">
                     <div class="modal-content">
                         <h5><u>Uplaod Poster</u></h5>
                         <div class="row">
