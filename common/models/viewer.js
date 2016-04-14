@@ -9,8 +9,8 @@ var browser=new webdriver.Builder().usingServer().withCapabilities({'browserName
 module.exports = function(Viewer) {
 	Viewer.login=async function(id,password){
 		var whichUser=id.indexOf('201');
-		var is=await webMailLog(id,password);
-		//var is=1;
+		//var is=await webMailLog(id,password);
+		var is=1;
 		console.log(is);
 		try{
 			if(is==1){
@@ -201,6 +201,16 @@ module.exports = function(Viewer) {
 			return 'error';
 		}
 	}
+	Viewer.getEmail=async function(id){
+		try{
+			var r=await Viewer.findOne({where:{id:id}})
+			return r.email;
+		} 
+		catch(e){
+			return 'error'
+		}
+
+	}
 	Viewer.changeEmail=async function(id,mail){
 		try{
 			await Viewer.update({id:id},{email:mail});
@@ -221,9 +231,10 @@ module.exports = function(Viewer) {
 			return 'error';
 		}
 	}
-	Viewer.remoteMethod('print',{
-		                         returns:{arg:'res',type:'array'},
-                                 http: {path: '/print', verb: 'get'}
+	Viewer.remoteMethod('getEmail',{
+		 						 accepts:{arg:'id',type:'string',required:true},
+		                         returns:{arg:'res',type:'string'},
+                                 http: {path: '/getEmail', verb: 'get'}
 		                         })
 	Viewer.remoteMethod('recent_feed',{
 		                         accepts:{arg:'id',type:'string',required:true},

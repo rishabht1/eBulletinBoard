@@ -13,6 +13,22 @@ module.exports = function(Posts) {
       return 'error';
     }
   }
+  Posts.disLike=async function(id,vid){
+    try{
+        var l=await Posts.findById(id);
+        console.log(l);
+        var l1=l.likes;
+        await Posts.update({id:id},{likes:l1-1});
+        var peopleliked=l.like;
+        var ind=peopleliked.indexOf(vid);
+        if(ind>-1)
+          peopleliked.splice(ind,1)
+        await Posts.update({id:id},{like:peopleliked});
+    }
+    catch(e){
+      return 'error';
+    }
+  }
   Posts.deletePost=async function(id){
   	try{
       await Posts.destroyAll({id:id});
@@ -50,33 +66,54 @@ module.exports = function(Posts) {
       return 'error';
     }
   }
-  Posts.edit=async function(id,msg){
-    try{
-       Posts.destroyAll({where:{id:id}});
-       Posts.create({
-        "name": "string",
-        "poster": "string",
-        "description": "string",
-        "realeaseDate": "2016-03-24",
-        "startDate": "2016-03-24",
-        "endDate": "2016-03-24",
-        "likes": 0,
-        "type": true,
-        "tags":"",
-        "id": "string",
-        "uploaderId": "id"
+  Posts.edit=async function(id,name,poster,desc,rd,sd,st,et,ed,type,tags){
+        var check=await Poster.findOne({where:{id:id}});
+        Posts.destroyAll({where:{id:id}});
+        //console.log(poster+'\n')
+        var res;
+       // console.log(id+" "+name+" "+ed+" "+sd+" "+st+" "+et+" "+type+" "+tags)
+        tags=tags.toLowerCase()
+        if(check==null){
+          res="notsuccess";
+          return res;
+        }
+        try{
+          var k=await posts.create( {
+          "name": name,
+          "poster": poster,
+          "description": desc,
+          "realeaseDate": rd,
+          "startDate": sd,
+          "endDate": ed,
+          "startTime": st,
+          "endTime": et,
+          "likes": 0,
+          "tags":tags,
+          "like":[],
+          "type": type,
+          "uploaderId": check.uploaderId
         });
-    }
-    catch(e){
-      return 'error';
-    }
-  }
+        res="success";
+      }
+      catch(e){
+        res="error";
+      }
+      console.log(res)
+      return res;
+    };
   Posts.remoteMethod('like',{
                              accepts:[
                                     {arg:'id',type:'string',required:true},
                                       {arg:'uid',type:'string',required:true}
                                      ],
                                  http: {path: '/like', verb: 'get'}
+                             })
+  Posts.remoteMethod('disLike',{
+                             accepts:[
+                                    {arg:'id',type:'string',required:true},
+                                      {arg:'uid',type:'string',required:true}
+                                     ],
+                                 http: {path: '/disLike', verb: 'get'}
                              })
   Posts.remoteMethod('deletePost',{
                              accepts:[
@@ -92,12 +129,19 @@ module.exports = function(Posts) {
                                  http: {path: '/search', verb: 'get'}
                              })
   Posts.remoteMethod('edit',{
-                             accepts:[
-                                    {arg:'id',type:'string',required:true},
-                                      {arg:'uid',type:'string',required:true}
-                                     ],
-                            returns:{arg:'res',type:'string'},
-                                 http: {path: '/unsubscribe', verb: 'get'}
+                             accepts:[{arg:'id',type:'string',required:true},
+                                      {arg:'name',type:'string',required:true},
+                                      {arg:'poster',type:'string',required:true},
+                                      {arg:'desc',type:'string',required:true},
+                                      {arg:'rd',type:'Date',required:true},
+                                      {arg:'sd',type:'Date',required:true},
+                                      {arg:'st',type:'string',required:true},
+                                      {arg:'et',type:'string',required:true},
+                                      {arg:'ed',type:'Date',required:true},
+                                      {arg:'type',type:'boolean',required:true},
+                                      {arg:'tags',type:'string',required:true}],
+                             returns:{arg:'res',type:'string'},
+                                 http: {path: '/edit', verb: 'get'}
                              })
 };
 //post update.

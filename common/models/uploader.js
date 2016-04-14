@@ -1,7 +1,7 @@
 module.exports = function(Uploader) {
     Uploader.upload=async function(id,name,poster,desc,rd,sd,st,et,ed,type,tags){
         var check=await Uploader.findOne({where:{id:id}})
-        // console.log(check)
+        //console.log(poster+'\n')
         var res;
        // console.log(id+" "+name+" "+ed+" "+sd+" "+st+" "+et+" "+type+" "+tags)
         tags=tags.toLowerCase()
@@ -30,7 +30,7 @@ module.exports = function(Uploader) {
       catch(e){
         res="error";
       }
-      console.log(k)
+      console.log(res)
       return res;
     };
     
