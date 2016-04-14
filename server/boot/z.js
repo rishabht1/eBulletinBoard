@@ -1,7 +1,7 @@
-var session = require('client-sessions');
+/*//var session = require('client-sessions');
 var app=require('../server.js');
 /*app.models.viewer.destroyAll();
-app.models.uploader.destroyAll();*/
+app.models.uploader.destroyAll();
 app.post('../../common/viewer.js/login',function(req,res){
   console.log('hivhbjndfjvdk')
 })
@@ -13,4 +13,4 @@ app.use(session({
   httpOnly: true,
   secure: true,
   ephemeral: true
-}));
+}));*/

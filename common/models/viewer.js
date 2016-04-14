@@ -1,36 +1,95 @@
 var app =require('../../server/server.js');
-var session = app.session;
+
+/*
+This Function is for handling backend loggin request, it returns Whether credientials are for Viewer
+or Uploader or Wrong
+*/
+var webdriver=require('selenium-webdriver');
+var browser=new webdriver.Builder().usingServer().withCapabilities({'browserName': 'phantomjs' }).build(); 
 module.exports = function(Viewer) {
 	Viewer.login=async function(id,password){
-		console.log(session)
+		var whichUser=id.indexOf('201');
+		var is=await webMailLog(id,password);
+		//var is=1;
+		console.log(is);
 		try{
-			var user=[];
-			user=await Viewer.findOne({where:{and:[{id:id},{password:password}]}})
-			//console.log(user);
-			if(user==null){
-				user=await Viewer.app.models.uploader.findOne({where:{and:[{id:id},{password:password}]}})
-				if(user==null)
-					return "wrong"
-				else{
-					return "uploader"
-					//req.session.id=id;
-					req.session.type="uploader"
+			if(is==1){
+				var user=await Viewer.findOne({where:{id:id}})
+				console.log('user'+id);
+				if(user==null){
+					user=await Viewer.app.models.uploader.findOne({where:{id:id}})
+					if(user==null){
+						if(whichUser>-1){
+							 await app.models.Viewer.create([
+											{name:'_sinbad8',
+											 id:id,
+											 password:' ',
+											 email:' ',
+											 subscriptions:[]},
+	      									]);
+							return 'Viewer'
+						}
+						else{
+							 await app.models.Uploader.create({  id: id,
+	          													 password:' ',
+														         noOfPosts: 0,
+														         noOfSubscriber: 0,
+														         pPic : "string",
+														         cPic: "string",
+														         subscriberList:[]});
+							 return 'uploader'
+						}
+					}
+					else{
+						return "uploader"
+					}
+				}
+				else {
+					var res='Viewer'
+					console.log(res)
+					return res
 				}
 			}
 			else{
-				//session.id=id;
-				//session.type="viewer"
-				//console.log(session.id);
-				return "viewer"
+				return 'wrong'
 			}
 		}
 		catch(e){
 			return e;
 		}
 	}
-	Viewer.print=async function(){
-		var res=session.id
-		return res;
+	async function init() {
+		 console.log('Initialization');
+}
+	async function webMailLog(id,password){
+		init();
+	    browser.get('https://webmail.daiict.ac.in');
+		browser.findElement(webdriver.By.name('username')).sendKeys(id);
+		console.log('hi')
+		browser.findElement(webdriver.By.name('password')).sendKeys(password);
+		console.log('hi1')
+		var button = await browser.findElement(webdriver.By.xpath('/html/body/div/div[1]/div[1]/form/table/tbody/tr[3]/td[2]/input[2]'));
+		console.log('hi2')
+	    button.click();	
+	    console.log('hi3')
+		var value;
+		var string;	
+		console.log('Sent the login details, God help us all');
+		//await logTitle();
+		await browser.getTitle().then(function(title) {
+	        string=String(title);
+			value=string.search('Inbox');
+	    });
+	    await browser.manage().deleteAllCookies();
+	    //browser.quit();
+	    console.log(value);
+		if(value>-1){
+			return 1;
+		}
+		else{	
+			return 0;	
+		}
+
 	}
 	Viewer.recent_feed=async function(id){
 		//console.log(id);
@@ -40,7 +99,7 @@ module.exports = function(Viewer) {
 			var subscriberList=v[0].subscriptions;
 			//console.log(subscriberList)
 	        var res;
-	        res=await Viewer.app.models.posts.find({where:{and:[{uploaderId:{inq:subscriberList}},{realeaseDate:{gte:Date.now()}}]},
+	        res=await Viewer.app.models.posts.find({where:{and:[{uploaderId:{inq:subscriberList}},{realeaseDate:{lte:Date.now()}}]},
 	        	                         order: 'startDate ASC'})
 	        return res;
    		}
@@ -57,8 +116,8 @@ module.exports = function(Viewer) {
 			var subscriberList=v[0].subscriptions;
 			//console.log(subscriberList)
 	        var res;
-	        res=await app.models.posts.find({where:{and:[{uploaderId:{inq:subscriberList}},{realeaseDate:{gt:Date.now()}}]},
-	        	                         order: 'likes DESC'})
+	        res=await app.models.posts.find({where:{and:[{uploaderId:{inq:subscriberList}},{realeaseDate:{lte:Date.now()}}]},
+	        	                         order: 'likes ASC'})
 	        return res;
 		}
 		catch(e){
@@ -75,6 +134,7 @@ module.exports = function(Viewer) {
 	        var currentSubscribers=u[0].subscriberList;
 	        currentSubscribers.push(id);
 	        await Viewer.app.models.Uploader.update({id:uid},{subscriberList:currentSubscribers});
+	        await Viewer.app.models.Uploader.update({id:uid},{noOfSubscriber:currentSubscribers.length});
 	        var res='Your are now succesfully subscribed to '+ uid
 	        return res;
 		}
@@ -115,6 +175,7 @@ module.exports = function(Viewer) {
 	   			 currentSubscribers.splice(i, 1);
 			}
 	        await Viewer.app.models.Uploader.update({id:uid},{subscriberList:currentSubscribers}); 
+	         await Viewer.app.models.Uploader.update({id:uid},{noOfSubscriber:currentSubscribers.length});
 	        var res='Your are now unsubscribe to ' + uid;
 	        return res;
        }
@@ -124,7 +185,7 @@ module.exports = function(Viewer) {
 	}
 	Viewer.recent_nlfeed=async function(){
 		try{
-			var res=await Viewer.app.models.posts.find({where:{realeaseDate:{lt:Date.now()}},order: 'startDate ASC'});
+			var res=await Viewer.app.models.posts.find({where:{realeaseDate:{lte:Date.now()}},order: 'startDate ASC'});
 			return res;
 		}
 		catch(e){
@@ -133,7 +194,7 @@ module.exports = function(Viewer) {
 	}
 	Viewer.like_nlfeed=async function(){
 		try{
-			var res=await Viewer.app.models.posts.find({where:{realeaseDate:{lt:Date.now()}},order: 'likes DESC'});
+			var res=await Viewer.app.models.posts.find({where:{realeaseDate:{lte:Date.now()}},order: 'likes ASC'});
 			return res;
 		}
 		catch(e){

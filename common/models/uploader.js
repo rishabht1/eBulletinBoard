@@ -3,27 +3,27 @@ module.exports = function(Uploader) {
         var check=await Uploader.findOne({where:{id:id}})
         // console.log(check)
         var res;
-        console.log(id+" "+name+" "+ed+" "+sd+" "+st+" "+et+" "+type+" "+tags)
+       // console.log(id+" "+name+" "+ed+" "+sd+" "+st+" "+et+" "+type+" "+tags)
         tags=tags.toLowerCase()
         if(check==null){
           res="notsuccess";
           return res;
         }
         try{
-      	var k=await Uploader.app.models.posts.create( {
-  			"name": name,
-  			"poster": poster,
-			  "description": desc,
-			  "realeaseDate": rd,
-			  "startDate": sd,
-			  "endDate": ed,
-        "startTime": st,
-        "endTime": et,
-			  "likes": 0,
-        "tags":tags,
-        "like":[],
-			  "type": type,
-			  "uploaderId": id
+        	var k=await Uploader.app.models.posts.create( {
+    			"name": name,
+    			"poster": poster,
+  			  "description": desc,
+  			  "realeaseDate": rd,
+  			  "startDate": sd,
+  			  "endDate": ed,
+          "startTime": st,
+          "endTime": et,
+  			  "likes": 0,
+          "tags":tags,
+          "like":[],
+  			  "type": type,
+  			  "uploaderId": id
         });
         res="success";
       }
@@ -35,16 +35,16 @@ module.exports = function(Uploader) {
     };
     
     Uploader.recent_feed=async function(id){
-   	var res;
-    try{
-   	res=await Uploader.app.models.posts.find({where:{uploaderId:id},order:'startDate ASC'});
-    return res;
+     	var res;
+      try{
+       	res=await Uploader.app.models.posts.find({where:{uploaderId:id},order:'startDate ASC'});
+        return res;
+      }
+      catch(e){
+        res="error";
+        return res;
+      }
     }
-    catch(e){
-    res="error";
-    return res;
-    }
-   }
    Uploader.like_feed=async function(id){
     var res;
     try{

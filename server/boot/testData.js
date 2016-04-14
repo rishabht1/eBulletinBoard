@@ -21,6 +21,7 @@ var Uploaders;
         await Viewer.updateAll({id:viewer[1].id},{"$push":{"subscriptions":uploader[1].id}});
   }*/
      // if (err) throw er);
+     
   async function createViewers() {
      var ans = await app.models.Viewer.create([
         {name:'_sinbad8',id:'201301000',password:'1234',email: 'pareshp1997@gmail.com',subscriptions:['proClub','Debate']},
